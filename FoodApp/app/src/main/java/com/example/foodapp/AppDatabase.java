@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 public class AppDatabase extends SQLiteOpenHelper {
 
     // USER TABLE
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
     private static String DB_NAME = "FoodApp.db3";
     private static String USER_DB_TABLE = "users";
     private static String USER_COLUMN_ID = "user_id";
@@ -127,7 +127,11 @@ public class AppDatabase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(oldVersion >= newVersion)
             return;
-        db.execSQL("DROP TABLE IF EXISTS " + DB_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + USER_DB_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + VENDOR_DB_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ORDER_DB_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + MENU_ITEM_DB_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ORDER_ITEM_DB_TABLE);
         onCreate(db);
     }
 
