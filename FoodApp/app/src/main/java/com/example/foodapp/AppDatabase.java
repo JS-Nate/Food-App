@@ -16,7 +16,7 @@ public class AppDatabase extends SQLiteOpenHelper {
 
     // USER TABLE
     private static final int DB_VERSION = 6;
-    private static String DB_NAME = "FoodApp.db3";
+    private static String DB_NAME = "FoodApp.db";
     private static String USER_DB_TABLE = "users";
     private static String USER_COLUMN_ID = "user_id";
     private static String USER_COLUMN_EMAIL = "email";
@@ -47,6 +47,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     private static String MENU_ITEM_COLUMN_ID = "item_id";
     private static String MENU_ITEM_COLUMN_VENDOR_ID = "vendor_id";
     private static String MENU_ITEM_COLUMN_ITEM_NAME = "item_name";
+    private static String MENU_ITEM_COLUMN_FEATURED = "item_featured";
     private static String MENU_ITEM_COLUMN_DESCRIPTION = "item_description";
     private static String MENU_ITEM_COLUMN_CATEGORY = "item_category";
     private static String MENU_ITEM_COLUMN_IMAGE = "item_image";
@@ -103,6 +104,7 @@ public class AppDatabase extends SQLiteOpenHelper {
                 "(" + MENU_ITEM_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MENU_ITEM_COLUMN_VENDOR_ID + " INTEGER," +
                 MENU_ITEM_COLUMN_ITEM_NAME + " TEXT," +
+                MENU_ITEM_COLUMN_FEATURED + " BOOLEAN," +
                 MENU_ITEM_COLUMN_DESCRIPTION + " TEXT," +
                 MENU_ITEM_COLUMN_CATEGORY + " TEXT," +
                 MENU_ITEM_COLUMN_IMAGE + " TEXT," +
@@ -170,6 +172,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Donuts");
         contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "6 assorted donuts");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Donuts");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.sanity.io/images/czqk28jt/prod_th_ca/a1449a14843559badacede42c780a4b320d9f863-1024x1024.png?w=320&q=40&fit=max&auto=format");
         contentValues.put(MENU_ITEM_COLUMN_PRICE, 7.49);
         db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
@@ -183,6 +186,11 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(ORDER_ITEM_COLUMN_SUBTOTAL, 7.49);
         db.insert(ORDER_ITEM_DB_TABLE, null, contentValues);
     }
+
+    /****************** MENU TABLE ******************/
+
+
+    /****************** USER TABLE ******************/
 
     // checks if a given user's credentials exist in the database upon login
     public boolean userExists(String email, String password){
