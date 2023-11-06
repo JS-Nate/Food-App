@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/displayFNAME"
+        android:title="First Name" />
+    <item
+        android:id="@+id/displayLNAME"
+        android:title="Last Name" />
+    <item
+        android:id="@+id/displayEMAIL"
+        android:title="Email" />
+
+</menu>
