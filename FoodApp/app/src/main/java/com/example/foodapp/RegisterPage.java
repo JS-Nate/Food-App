@@ -64,7 +64,7 @@ public class RegisterPage extends AppCompatActivity {
                             email.getText().toString(),
                             password.getText().toString()
                     );
-                    LoginDatabase db = new LoginDatabase(RegisterPage.this);
+                    AppDatabase db = new AppDatabase(RegisterPage.this);
                     db.addUser(modelUser);
 
                     // and returns to login page

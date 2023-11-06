@@ -25,15 +25,18 @@ public class HomePage extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView accountView, searchbarView;
 
+    private AppDatabase db;
+
     // current user's id
     int id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         // database access initialization
-        LoginDatabase db = new LoginDatabase(HomePage.this);
+        db = new AppDatabase(HomePage.this);
 
         // buttons on screen
         cartButton = findViewById(R.id.cartButton);

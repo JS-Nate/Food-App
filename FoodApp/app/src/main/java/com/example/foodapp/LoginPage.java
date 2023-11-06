@@ -29,10 +29,20 @@ public class LoginPage extends AppCompatActivity {
     // to display error message
     TextView errorMessage;
 
+    private AppDatabase db;
+
+    void initializeDatabase() {
+        // Seed database for testing purposes
+        db = new AppDatabase(LoginPage.this);
+        if (db.getTotalOrders() == 0) {
+            db.seedDatabase();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+        initializeDatabase();
 
         // sets the values from the xml file
         email = findViewById(R.id.email);
@@ -69,7 +79,6 @@ public class LoginPage extends AppCompatActivity {
         submitLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginDatabase db = new LoginDatabase(LoginPage.this);
                 boolean exists = db.userExists(email.getText().toString(), password.getText().toString());
                 boolean emailEmpty = email.getText().toString().trim().isEmpty();
                 boolean passwordEmpty = password.getText().toString().trim().isEmpty();
