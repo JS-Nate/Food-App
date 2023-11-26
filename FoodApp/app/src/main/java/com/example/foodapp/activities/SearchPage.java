@@ -33,7 +33,7 @@ public class SearchPage extends AppCompatActivity {
         ToolbarHandler.handleImageButtonsFromSearch(id, this, homeButton, orderButton, accountButton);
 
 
-        SearchView searchBar = findViewById(R.id.searchBar);
+//        SearchView searchBar = findViewById(R.id.searchBar);
         RecyclerView searchRecyclerView = findViewById(R.id.searchRecyclerView);
 
 

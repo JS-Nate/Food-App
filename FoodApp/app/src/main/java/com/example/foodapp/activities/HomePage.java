@@ -69,7 +69,7 @@ public class HomePage extends AppCompatActivity {
         orderButton = findViewById(R.id.button3);
         accountButton = findViewById(R.id.button4);
         // Use the ToolbarHandler to handle the image buttons
-        ToolbarHandler.handleImageButtons(id, this, homeButton, searchButton, orderButton, accountButton);
+        ToolbarHandler.handleImageButtonsFromHome(id, this, searchButton, orderButton, accountButton);
 
         welcomeMessage = findViewById(R.id.welcomeMessage);
         welcomeMessage.setText("Hi " + thisUser.getFirstName());
