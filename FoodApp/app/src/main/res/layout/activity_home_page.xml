@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage">
+    tools:context=".activities.HomePage">
 
 <!--    page title-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Food App Name"
-        android:textSize="30dp"
+        android:text="Food U Can Konsume"
+        android:textSize="27dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,104 +21,126 @@
 
 
     <TextView
-        android:id="@+id/featuredItemsText"
+        android:id="@+id/welcomeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="100dp"
         android:text="Featured Items"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    show cart button-->
-    <ImageButton
-        android:id="@+id/cartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/transparent"
-        android:src="@drawable/shopping_bag_24px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
 
-<!--    create sidebar to view account info or search bar-->
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_hor_rec"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:context=".HomePage">
+        app:layout_constraintTop_toBottomOf="@id/welcomeMessage"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- View account search bar -->
-            <ImageButton
-                android:id="@+id/searchButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/transparent"
-                android:src="@drawable/search_24px"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- View account details button -->
-            <ImageButton
-                android:id="@+id/accountButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="285dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/transparent"
-                android:src="@drawable/account_circle_24px"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_ver_rec"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_hor_rec"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <!-- AccountView Sidebar -->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/accountView"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            app:headerLayout="@layout/nav_header"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/nav_menu" />
 
-        <!-- SearchView Sidebar -->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/searchbarView"
-            android:layout_width="280dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/search_header"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/search_menu" />
 
-    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+    <!--    bottom toolbar of the 4 buttons-->
+    <include layout="@layout/bottom_toolbar"/>
+
+
+
+    <!--    create sidebar to view account info or search bar-->
+<!--    <androidx.drawerlayout.widget.DrawerLayout-->
+<!--        android:id="@+id/drawerLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        tools:context=".activities.HomePage">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            &lt;!&ndash; View account search bar &ndash;&gt;-->
+<!--            <ImageButton-->
+<!--                android:id="@+id/searchButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:backgroundTint="@color/transparent"-->
+<!--                android:src="@drawable/search_24px"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            &lt;!&ndash; View account details button &ndash;&gt;-->
+<!--            <ImageButton-->
+<!--                android:id="@+id/accountButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="285dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:backgroundTint="@color/transparent"-->
+<!--                android:src="@drawable/account_circle_24px"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash; AccountView Sidebar &ndash;&gt;-->
+<!--        <com.google.android.material.navigation.NavigationView-->
+<!--            android:id="@+id/accountView"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="end"-->
+<!--            app:headerLayout="@layout/nav_header"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:menu="@menu/nav_menu" />-->
+
+<!--        &lt;!&ndash; SearchView Sidebar &ndash;&gt;-->
+<!--        <com.google.android.material.navigation.NavigationView-->
+<!--            android:id="@+id/searchbarView"-->
+<!--            android:layout_width="280dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="start"-->
+<!--            app:headerLayout="@layout/search_header"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:menu="@menu/search_menu" />-->
+
+<!--    </androidx.drawerlayout.widget.DrawerLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

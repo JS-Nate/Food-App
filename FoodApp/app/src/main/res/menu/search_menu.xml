@@ -4,5 +4,10 @@
 
     <item
         android:title=""
+        android:id="@+id/searchRestaurants"
         app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:title=""
+        android:id="@+id/listRestaurants"
+        app:actionViewClass="androidx.recyclerview.widget.RecyclerView"/>
 </menu>

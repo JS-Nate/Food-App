@@ -1,18 +1,19 @@
-package com.example.foodapp;
+package com.example.foodapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 import android.content.Intent;
+
+import com.example.foodapp.AppDatabase;
+import com.example.foodapp.R;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -95,6 +96,7 @@ public class LoginPage extends AppCompatActivity {
                         intent.putExtra("userId", userId);
                         Log.d("Sent", "id = " + userId);
                         startActivity(intent);
+//                        db.seedDatabase();
                     } else {
                         Toast.makeText(getApplicationContext(), "Error: User ID not found", Toast.LENGTH_SHORT).show();
                     }

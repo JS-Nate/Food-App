@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Your main content goes here -->
+
+    <!-- Bottom Toolbar -->
+    <LinearLayout
+        android:id="@+id/bottomToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- Image Buttons -->
+        <ImageButton
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_home_24"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/search_24px"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <ImageButton
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/shopping_bag_24px"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <ImageButton
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/account_circle_24px"
+            android:background="?android:attr/selectableItemBackground" />
+    </LinearLayout>
+
+
+
+
+    <!--    create sidebar to view account info or search bar-->
+<!--        <androidx.drawerlayout.widget.DrawerLayout-->
+<!--            android:id="@+id/drawerLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="1.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="1.0">-->
+<!--&lt;!&ndash;initially had a tools:context=".activities.HomePage" above here&ndash;&gt;-->
+
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent">-->
+
+
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/button1"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:src="@drawable/baseline_home_24"-->
+<!--                            android:background="?android:attr/selectableItemBackground" />-->
+
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/button2"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:src="@drawable/search_24px"-->
+<!--                            android:background="?android:attr/selectableItemBackground" />-->
+
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/button3"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:src="@drawable/shopping_bag_24px"-->
+<!--                            android:background="?android:attr/selectableItemBackground" />-->
+
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/button4"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:src="@drawable/account_circle_24px"-->
+<!--                            android:background="?android:attr/selectableItemBackground" />-->
+
+<!--                &lt;!&ndash; View account search bar &ndash;&gt;-->
+<!--&lt;!&ndash;                <ImageButton&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/searchButton"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_marginLeft="15dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_marginTop="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:backgroundTint="@color/transparent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:src="@drawable/search_24px"&ndash;&gt;-->
+<!--&lt;!&ndash;                    app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+
+<!--                &lt;!&ndash; View account details button &ndash;&gt;-->
+<!--&lt;!&ndash;                <ImageButton&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/accountButton"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_marginLeft="285dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_marginTop="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:backgroundTint="@color/transparent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:src="@drawable/account_circle_24px"&ndash;&gt;-->
+<!--&lt;!&ndash;                    app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; AccountView Sidebar &ndash;&gt;-->
+<!--            <com.google.android.material.navigation.NavigationView-->
+<!--                android:id="@+id/accountView"-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="end"-->
+<!--                app:headerLayout="@layout/nav_header"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:menu="@menu/nav_menu" />-->
+
+<!--            &lt;!&ndash; SearchView Sidebar &ndash;&gt;-->
+<!--            <com.google.android.material.navigation.NavigationView-->
+<!--                android:id="@+id/searchbarView"-->
+<!--                android:layout_width="280dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="start"-->
+<!--                app:headerLayout="@layout/search_header"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:menu="@menu/search_menu" />-->
+
+<!--        </androidx.drawerlayout.widget.DrawerLayout>-->
+
+
+
+
+
+
+</RelativeLayout>

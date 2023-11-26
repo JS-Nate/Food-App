@@ -3,14 +3,18 @@ package com.example.foodapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.foodapp.models.ModelMenuItem;
+import com.example.foodapp.models.ModelUser;
+import com.example.foodapp.models.ModelVendor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppDatabase extends SQLiteOpenHelper {
 
@@ -157,6 +161,15 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (905) 436-8080");
         db.insert(VENDOR_DB_TABLE, null, contentValues);
 
+        // add some vendor
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Pizza Restaurant");
+        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "This is a pizza place");
+        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 23.9862672);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, 98.8445777);
+        contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (123) 456-7890");
+        db.insert(VENDOR_DB_TABLE, null, contentValues);
+
         // add some order
         contentValues = new ContentValues();
         contentValues.put(ORDER_COLUMN_USER_ID, 1);
@@ -169,12 +182,34 @@ public class AppDatabase extends SQLiteOpenHelper {
         // add some menu item
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Avocado Toast");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "For all you hippies");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.sanity.io/images/czqk28jt/prod_th_ca/a1449a14843559badacede42c780a4b320d9f863-1024x1024.png?w=320&q=40&fit=max&auto=format");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 7.49);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Donuts");
         contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "6 assorted donuts");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Donuts");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.sanity.io/images/czqk28jt/prod_th_ca/a1449a14843559badacede42c780a4b320d9f863-1024x1024.png?w=320&q=40&fit=max&auto=format");
         contentValues.put(MENU_ITEM_COLUMN_PRICE, 7.49);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 2);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Coke");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "this is cocaine");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "coldDrink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://138794804.cdn6.editmysite.com/uploads/1/3/8/7/138794804/s132994155277906853_p18_i3_w1200.jpeg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 2.59);
         db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
 
         // add some order item
@@ -187,7 +222,135 @@ public class AppDatabase extends SQLiteOpenHelper {
         db.insert(ORDER_ITEM_DB_TABLE, null, contentValues);
     }
 
+
     /****************** MENU TABLE ******************/
+    public List<ModelMenuItem> getFeaturedItems(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelMenuItem> menuItems = new ArrayList<>();
+        String queryStatement = "SELECT * FROM " + MENU_ITEM_DB_TABLE;
+        Cursor cursor = db.rawQuery(queryStatement, null);
+
+        while (cursor.moveToNext()) {
+            ModelMenuItem modelMenuItem = new ModelMenuItem();
+            modelMenuItem.setId(cursor.getInt(0));
+            modelMenuItem.setVendorID(cursor.getInt(1));
+            modelMenuItem.setItemName(cursor.getString(2));
+            modelMenuItem.setItemFeatured(cursor.getString(3));
+            modelMenuItem.setItemDescription(cursor.getString(4));
+            modelMenuItem.setItemCategory(cursor.getString(5));
+            modelMenuItem.setItemImage(cursor.getString(6));
+            modelMenuItem.setItemPrice(cursor.getString(7));
+
+            menuItems.add(modelMenuItem);
+        }
+        cursor.close();
+        return menuItems;
+
+    }
+    // for reference
+//    public List<ModelVendor> getVendors() {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        List<ModelVendor> allVendor = new ArrayList<>();
+//        String queryStatement = "SELECT * FROM " + VENDOR_DB_TABLE;
+//        Cursor cursor = db.rawQuery(queryStatement, null);
+//
+//        while (cursor.moveToNext()) {
+//            ModelVendor modelVendor = new ModelVendor();
+//            modelVendor.setId(cursor.getInt(0));
+//            modelVendor.setName(cursor.getString(1));
+//            modelVendor.setDescription(cursor.getString(2));
+//            modelVendor.setLongitude(cursor.getDouble(3));
+//            modelVendor.setLatitude(cursor.getDouble(4));
+//            modelVendor.setContact(cursor.getString(5));
+//
+//            allVendor.add(modelVendor);  // Add the created object to the list
+//        }
+//
+//        cursor.close();  // Close the cursor to avoid memory leaks
+//        return allVendor;
+//    }
+
+
+
+    public List<ModelMenuItem> getMenuItemsByCategory(String category) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelMenuItem> menuItems = new ArrayList<>();
+
+        String[] query = new String[]{
+                MENU_ITEM_COLUMN_ID,
+                MENU_ITEM_COLUMN_VENDOR_ID,
+                MENU_ITEM_COLUMN_ITEM_NAME,
+                MENU_ITEM_COLUMN_FEATURED,
+                MENU_ITEM_COLUMN_DESCRIPTION,
+                MENU_ITEM_COLUMN_CATEGORY,
+                MENU_ITEM_COLUMN_IMAGE,
+                MENU_ITEM_COLUMN_PRICE
+        };
+
+        Cursor cursor = db.query(
+                MENU_ITEM_DB_TABLE,
+                query,
+                MENU_ITEM_COLUMN_CATEGORY + "=?",
+                new String[]{category},
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                ModelMenuItem menuItem = new ModelMenuItem();
+                menuItem.setId(cursor.getInt(0));
+                menuItem.setVendorID(cursor.getInt(1));
+                menuItem.setItemImage(cursor.getString(2));
+                menuItem.setItemFeatured(cursor.getString(3));
+
+
+
+                menuItems.add(menuItem);
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return menuItems;
+    }
+
+
+    public ModelMenuItem getMenuItem(int ID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] query = new String[]{
+                MENU_ITEM_COLUMN_ID,
+                MENU_ITEM_COLUMN_VENDOR_ID,
+                MENU_ITEM_COLUMN_ITEM_NAME,
+                MENU_ITEM_COLUMN_FEATURED,
+                MENU_ITEM_COLUMN_DESCRIPTION,
+                MENU_ITEM_COLUMN_CATEGORY,
+                MENU_ITEM_COLUMN_IMAGE,
+                MENU_ITEM_COLUMN_PRICE};
+        Cursor cursor = db.query(MENU_ITEM_DB_TABLE, query, MENU_ITEM_COLUMN_ID + "=?", new String[]{String.valueOf(ID)}, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            return new ModelMenuItem(
+                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7)
+            );
+        }
+        else {
+            return null;
+        }
+
+    }
+
+
 
 
     /****************** USER TABLE ******************/
@@ -265,4 +428,108 @@ public class AppDatabase extends SQLiteOpenHelper {
         cursor.close();
         return totalOrders;
     }
+
+
+    /****************** VENDOR TABLE ******************/
+    // returns a list of vendors to be listed on the home page
+    public List<ModelVendor> getVendors() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelVendor> allVendor = new ArrayList<>();
+        String queryStatement = "SELECT * FROM " + VENDOR_DB_TABLE;
+        Cursor cursor = db.rawQuery(queryStatement, null);
+
+        while (cursor.moveToNext()) {
+            ModelVendor modelVendor = new ModelVendor();
+            modelVendor.setId(cursor.getInt(0));
+            modelVendor.setName(cursor.getString(1));
+            modelVendor.setDescription(cursor.getString(2));
+            modelVendor.setLongitude(cursor.getDouble(3));
+            modelVendor.setLatitude(cursor.getDouble(4));
+            modelVendor.setContact(cursor.getString(5));
+
+            allVendor.add(modelVendor);  // Add the created object to the list
+        }
+
+        cursor.close();  // Close the cursor to avoid memory leaks
+        return allVendor;
+    }
+
+
+    public ModelVendor getVendorFromId(int ID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] query = new String[]{VENDOR_COLUMN_ID, VENDOR_COLUMN_VENDOR_NAME, VENDOR_COLUMN_VENDOR_DESCRIPTION, VENDOR_COLUMN_VENDOR_LONGITUDE, VENDOR_COLUMN_VENDOR_LATITUDE, VENDOR_COLUMN_VENDOR_DESCRIPTION};
+        Cursor cursor = db.query(VENDOR_DB_TABLE, query, VENDOR_COLUMN_ID + "=?", new String[]{String.valueOf(ID)}, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()){
+            return new ModelVendor(
+                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getDouble(3),
+                    cursor.getDouble(4),
+                    cursor.getString(5)
+            );
+        }
+        else{
+            return null;
+        }
+    }
+
+    public String getVendorName(int ID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String vendorName = null;
+
+        String queryStatement = "SELECT " + VENDOR_COLUMN_VENDOR_NAME +
+                " FROM " + VENDOR_DB_TABLE +
+                " WHERE " + VENDOR_COLUMN_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(queryStatement, new String[]{String.valueOf(ID)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            vendorName = cursor.getString(0);
+            cursor.close();
+        }
+
+        db.close();
+
+        return vendorName;
+    }
+
+
+
+
+
+
+    /*
+    * public List<MenuItem> getMenuItembyTag(string tag)
+    *
+    *
+    * */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

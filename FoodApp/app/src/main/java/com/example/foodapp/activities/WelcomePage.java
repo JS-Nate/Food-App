@@ -1,14 +1,16 @@
-package com.example.foodapp;
+package com.example.foodapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class VendorDetails extends AppCompatActivity {
+import com.example.foodapp.R;
+
+public class WelcomePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vendor_details);
+        setContentView(R.layout.activity_welcome_page);
     }
 }

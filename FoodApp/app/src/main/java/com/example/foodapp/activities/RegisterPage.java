@@ -1,15 +1,18 @@
-package com.example.foodapp;
+package com.example.foodapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.foodapp.AppDatabase;
+import com.example.foodapp.R;
+import com.example.foodapp.models.ModelUser;
 
 public class RegisterPage extends AppCompatActivity {
 

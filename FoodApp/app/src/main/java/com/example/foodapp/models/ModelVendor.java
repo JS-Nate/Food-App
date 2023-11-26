@@ -1,7 +1,6 @@
-package com.example.foodapp;
+package com.example.foodapp.models;
 
-public class Vendor {
-
+public class ModelVendor {
     public Integer id;
 
     public String name;
@@ -9,6 +8,26 @@ public class Vendor {
     public double longitude;
     public double latitude;
     public String contact;
+
+
+    public ModelVendor(){}
+
+    public ModelVendor(String name, String description, double longitude, double latitude, String contact){
+        this.name = name;
+        this.description = description;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.contact = contact;
+    }
+
+    public ModelVendor(int id, String name, String description, double longitude, double latitude, String contact){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.contact = contact;
+    }
 
     public Integer getId() {
         return id;
