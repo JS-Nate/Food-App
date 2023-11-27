@@ -12,6 +12,19 @@ import androidx.fragment.app.Fragment;
 import com.example.foodapp.R;
 public class DrinksFragment extends Fragment{
 
+
+
+    private int vendorId;
+
+    public DrinksFragment(){}
+
+
+    public DrinksFragment(int vendorId) {
+        this.vendorId = vendorId;
+    }
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

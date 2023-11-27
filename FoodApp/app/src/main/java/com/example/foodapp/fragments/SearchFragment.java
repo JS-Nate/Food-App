@@ -13,6 +13,21 @@ import androidx.fragment.app.Fragment;
 import com.example.foodapp.R;
 
 public class SearchFragment extends Fragment {
+
+
+
+    private int vendorId;
+
+    public SearchFragment(){}
+
+
+    public SearchFragment(int vendorId) {
+        this.vendorId = vendorId;
+    }
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

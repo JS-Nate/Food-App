@@ -12,8 +12,13 @@ import com.example.foodapp.fragments.LocationFragment;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
-    public MyPagerAdapter(FragmentManager fm) {
+    int vendorID;
+
+
+    public MyPagerAdapter(FragmentManager fm, int id) {
+
         super(fm);
+        this.vendorID = id;
     }
 
     @Override
@@ -21,15 +26,15 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         // Return the fragment for the given position
         switch (position) {
             case 0:
-                return new FoodFragment(); // Replace with your FoodFragment
+                return new FoodFragment(vendorID); // Replace with your FoodFragment
             case 1:
-                return new DrinksFragment(); // Replace with your DrinksFragment
+                return new DrinksFragment(vendorID); // Replace with your DrinksFragment
             case 2:
-                return new SearchFragment(); // Replace with your SearchFragment
+                return new SearchFragment(vendorID); // Replace with your SearchFragment
             case 3:
-                return new AboutFragment(); // Replace with your AboutFragment
+                return new AboutFragment(vendorID); // Replace with your AboutFragment
             case 4:
-                return new LocationFragment(); // Replace with your LocationFragment
+                return new LocationFragment(vendorID); // Replace with your LocationFragment
             default:
                 return null;
         }

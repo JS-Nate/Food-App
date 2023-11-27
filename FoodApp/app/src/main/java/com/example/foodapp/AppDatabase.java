@@ -195,11 +195,34 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Donuts");
         contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "6 assorted donuts");
-        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Donuts");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.sanity.io/images/czqk28jt/prod_th_ca/a1449a14843559badacede42c780a4b320d9f863-1024x1024.png?w=320&q=40&fit=max&auto=format");
         contentValues.put(MENU_ITEM_COLUMN_PRICE, 7.49);
         db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 2);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Pizza");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "a nice large pizza");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.sanity.io/images/czqk28jt/prod_th_ca/a1449a14843559badacede42c780a4b320d9f863-1024x1024.png?w=320&q=40&fit=max&auto=format");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 12.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Coffee");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "a cup of coffee");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.sanity.io/images/czqk28jt/prod_th_ca/a1449a14843559badacede42c780a4b320d9f863-1024x1024.png?w=320&q=40&fit=max&auto=format");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.49);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
 
         // add some menu item
         contentValues = new ContentValues();
@@ -349,6 +372,44 @@ public class AppDatabase extends SQLiteOpenHelper {
         }
 
     }
+
+
+
+    public List<ModelMenuItem> getMenuItemsByVendorAndCategory(int vendorId, String category) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelMenuItem> menuItems = new ArrayList<>();
+
+        String queryStatement = "SELECT * FROM " + MENU_ITEM_DB_TABLE +
+                " WHERE " + MENU_ITEM_COLUMN_VENDOR_ID + " = ?" +
+                " AND " + MENU_ITEM_COLUMN_CATEGORY + " = ?";
+
+        Cursor cursor = db.rawQuery(queryStatement, new String[]{String.valueOf(vendorId), category});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                ModelMenuItem modelMenuItem = new ModelMenuItem();
+                modelMenuItem.setId(cursor.getInt(0));
+                modelMenuItem.setVendorID(cursor.getInt(1));
+                modelMenuItem.setItemName(cursor.getString(2));
+                modelMenuItem.setItemFeatured(cursor.getString(3));
+                modelMenuItem.setItemDescription(cursor.getString(4));
+                modelMenuItem.setItemCategory(cursor.getString(5));
+                modelMenuItem.setItemImage(cursor.getString(6));
+                modelMenuItem.setItemPrice(cursor.getString(7));
+                // Add the menuItem to the list
+                menuItems.add(modelMenuItem);
+            } while (cursor.moveToNext());
+
+            // Close the cursor
+            cursor.close();
+        }
+
+        // Close the database
+        db.close();
+
+        return menuItems;
+    }
+
 
 
 

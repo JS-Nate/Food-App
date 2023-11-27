@@ -14,6 +14,20 @@ import com.example.foodapp.R;
 
 public class LocationFragment extends Fragment {
 
+
+
+    private int vendorId;
+
+    public LocationFragment(){}
+
+
+    public LocationFragment(int vendorId) {
+        this.vendorId = vendorId;
+    }
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
