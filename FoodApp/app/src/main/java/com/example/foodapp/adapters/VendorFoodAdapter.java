@@ -1,6 +1,7 @@
 package com.example.foodapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.R;
+import com.example.foodapp.activities.ItemDetails;
 import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelVendor;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
 
 
 
-    public VendorFoodAdapter(Context context, List<ModelMenuItem> list, int UserID){
+    public VendorFoodAdapter(Context context, List<ModelMenuItem> list, int userID){
         this.inflater = LayoutInflater.from(context);
         this.modelMenuItemList = list;
         this.userID = userID;
@@ -47,6 +50,10 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
         ModelMenuItem modelMenuItem = modelMenuItemList.get(position);
         holder.itemName.setText(modelMenuItem.getItemName());
         holder.itemPrice.setText(String.valueOf(modelMenuItem.getItemPrice())); // Assuming ItemPrice is int, update accordingly
+        String imageString = modelMenuItem.getItemImage();
+
+        // trying to load image via Picasso
+        Picasso.get().load(imageString).into((holder.itemImage));
     }
 
     @Override
@@ -66,7 +73,18 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Clicked on " + itemName.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "Clicked on " + itemName.getText().toString() + " user id " + userID, Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(v.getContext(), ItemDetails.class);
+
+                    // Pass any necessary data to the detail activity using intent extras
+                    intent.putExtra("item_id", modelMenuItemList.get(getAdapterPosition()).getId());
+                    intent.putExtra("userID", userID);
+                    // Add other data as needed
+
+                    // Start the detail activity
+                    v.getContext().startActivity(intent);
+
 
                 }
             });

@@ -207,8 +207,8 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Pizza");
         contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "a nice large pizza");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
-        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
-        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.sanity.io/images/czqk28jt/prod_th_ca/a1449a14843559badacede42c780a4b320d9f863-1024x1024.png?w=320&q=40&fit=max&auto=format");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://www.washingtonpost.com/graphics/2020/food/best-pizza-dc/img/TimberWholePizzaCutout.png");
         contentValues.put(MENU_ITEM_COLUMN_PRICE, 12.99);
         db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
 
@@ -250,7 +250,8 @@ public class AppDatabase extends SQLiteOpenHelper {
     public List<ModelMenuItem> getFeaturedItems(){
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelMenuItem> menuItems = new ArrayList<>();
-        String queryStatement = "SELECT * FROM " + MENU_ITEM_DB_TABLE;
+        String queryStatement = "SELECT * FROM " + MENU_ITEM_DB_TABLE +
+                " WHERE " + MENU_ITEM_COLUMN_FEATURED + " = 1";
         Cursor cursor = db.rawQuery(queryStatement, null);
 
         while (cursor.moveToNext()) {

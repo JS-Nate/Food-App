@@ -46,7 +46,7 @@ public class HomePage extends AppCompatActivity {
     private AppDatabase db;
 
     // current user's id
-    int id;
+    int userID;
 
 
     @Override
@@ -59,9 +59,9 @@ public class HomePage extends AppCompatActivity {
 
         // gets the user's account info based on the id
         Intent intent = getIntent();
-        id = intent.getIntExtra("userId", 0);
-        Log.d("Received", "id ->" + id);
-        ModelUser thisUser = db.getUser(id);
+        userID = intent.getIntExtra("userId", 0);
+        Log.d("Received", "id ->" + userID);
+        ModelUser thisUser = db.getUser(userID);
 
         // buttons on screen
         homeButton = findViewById(R.id.button1);
@@ -69,7 +69,7 @@ public class HomePage extends AppCompatActivity {
         orderButton = findViewById(R.id.button3);
         accountButton = findViewById(R.id.button4);
         // Use the ToolbarHandler to handle the image buttons
-        ToolbarHandler.handleImageButtonsFromHome(id, this, searchButton, orderButton, accountButton);
+        ToolbarHandler.handleImageButtonsFromHome(userID, this, searchButton, orderButton, accountButton);
 
         welcomeMessage = findViewById(R.id.welcomeMessage);
         welcomeMessage.setText("Hi " + thisUser.getFirstName());
@@ -121,7 +121,7 @@ public class HomePage extends AppCompatActivity {
         recyclerView1.setLayoutManager(layoutManager1);
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setNestedScrollingEnabled(false);
-        homeHorAdapter = new HomeHorAdapter(this, modelMenuItemList, id);
+        homeHorAdapter = new HomeHorAdapter(this, modelMenuItemList, userID);
         recyclerView1.setAdapter(homeHorAdapter);
 
 
@@ -134,7 +134,7 @@ public class HomePage extends AppCompatActivity {
         recyclerView2.setLayoutManager(layoutManager2);
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setNestedScrollingEnabled(false);
-        homeVerAdapter = new HomeVerAdapter(this, modelVendorList, id);
+        homeVerAdapter = new HomeVerAdapter(this, modelVendorList, userID);
         recyclerView2.setAdapter(homeVerAdapter);
 
 

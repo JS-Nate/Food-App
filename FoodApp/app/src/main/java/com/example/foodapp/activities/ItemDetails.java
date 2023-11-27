@@ -62,7 +62,7 @@ public class ItemDetails extends AppCompatActivity {
         double itemPrice = Double.valueOf(thisMenuItem.getItemPrice());
 
 
-
+        // the item data from the database
         TextView showName = findViewById(R.id.showName);
         TextView showDescription = findViewById(R.id.showDescription);
         TextView showPrice = findViewById(R.id.showPrice);
@@ -81,6 +81,7 @@ public class ItemDetails extends AppCompatActivity {
                     small.setChecked(true);
         RadioButton medium = findViewById(R.id.medium);
         RadioButton large = findViewById(R.id.large);
+        TextView specialInstructions;
 
         // for the user to choose the size of the item
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -106,7 +107,7 @@ public class ItemDetails extends AppCompatActivity {
         addToOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                            //    tax * (itemquantity  * (item price + size price))
+                            //    tax * (itemquantity  * (default item price + size price))
                 double subTotal = 1.13*(Double.valueOf(showAmount.getText().toString())*(itemPrice + sizePrice));
                 Toast.makeText(getApplicationContext(), "Adding to Order", Toast.LENGTH_SHORT).show();
 

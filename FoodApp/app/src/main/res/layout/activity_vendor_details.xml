@@ -113,10 +113,9 @@
     <!--    search item-->
 <!--        same search bar that filters by title of food or drink-->
 <!--    list of food-->
-<!--        each restaurant will have its own db table of food-->
+<!--        each restaurant will have its own category of food-->
 <!--        if they choose a certain size, add a certain amount to the pre-existing price-->
 <!--    list of drinks-->
-<!--        might be the same db table of drinks used through out all restauants-->
 <!--    about section with a promotional video-->
 <!--    location with maps api-->
 

@@ -32,7 +32,7 @@ import java.util.List;
 public class VendorDetails extends AppCompatActivity {
     ImageButton homeButton, searchButton, orderButton, accountButton;
 
-    int id;
+    int vendorId;
     TextView name, restaurantDescription;
 
     TabLayout tabLayout;
@@ -49,9 +49,9 @@ public class VendorDetails extends AppCompatActivity {
         Intent intent = getIntent();
 
 
-        id = intent.getIntExtra("vendorID", 0);
+        vendorId = intent.getIntExtra("vendorID", 0);
         int userID = intent.getIntExtra("userID", 0);
-        ModelVendor modelVendor = db.getVendorFromId(id);
+        ModelVendor modelVendor = db.getVendorFromId(vendorId);
 
         Log.d("Received in vendor page", "id ->" + userID);
 
@@ -72,7 +72,7 @@ public class VendorDetails extends AppCompatActivity {
         /* old */
 //        // Set up ViewPager
         viewPager = findViewById(R.id.viewPager);
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), id);
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), vendorId, userID);
         viewPager.setAdapter(pagerAdapter);
 
         // Set up TabLayout

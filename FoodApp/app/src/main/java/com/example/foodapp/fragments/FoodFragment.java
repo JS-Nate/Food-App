@@ -21,15 +21,16 @@ public class FoodFragment extends Fragment {
 
 
     private int vendorId;
-    private int userID = 0;
+    private int userID;
 
     public FoodFragment() {
         // Required empty public constructor
     }
 
     // Update the constructor to accept an integer ID
-    public FoodFragment(int vendorId) {
+    public FoodFragment(int vendorId, int userID) {
         this.vendorId = vendorId;
+        this.userID = userID;
     }
 
 
