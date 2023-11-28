@@ -20,14 +20,6 @@ import com.example.foodapp.fragments.AccountBottomSheetFragment;
 public class ToolbarHandler {
 
 
-
-
-
-
-
-
-
-
     public static void handleImageButtons(int id, Context context, ImageButton home, ImageButton search, ImageButton order, ImageButton account) {
         // Add your logic for each image button
 
@@ -67,10 +59,10 @@ public class ToolbarHandler {
             }
         });
 
-
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showAccountBottomSheet(v.getContext(), id);
 
             }
         });
@@ -122,7 +114,6 @@ public class ToolbarHandler {
             @Override
             public void onClick(View v) {
                 showAccountBottomSheet(v.getContext(), id);
-
             }
         });
 
@@ -172,6 +163,7 @@ public class ToolbarHandler {
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showAccountBottomSheet(v.getContext(), id);
 
             }
         });
@@ -221,6 +213,7 @@ public class ToolbarHandler {
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showAccountBottomSheet(v.getContext(), id);
 
             }
         });
