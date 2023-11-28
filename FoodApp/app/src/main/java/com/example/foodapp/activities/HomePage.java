@@ -55,13 +55,17 @@ public class HomePage extends AppCompatActivity {
                 showHomeButtonTapTarget();
                 break;
             case 2:
-                showSearchButtonTapTarget();
+                showFeaturedItemsTapTarget();
                 break;
             case 3:
-                showOrderButtonTapTarget();
+                showSearchButtonTapTarget();
                 break;
             case 4:
+                showOrderButtonTapTarget();
+                break;
+            case 5:
                 showAccountButtonTapTarget();
+
                 break;
 
             // Add cases for other buttons as needed
@@ -207,11 +211,38 @@ public class HomePage extends AppCompatActivity {
                 });
     }
 
+    private void showFeaturedItemsTapTarget() {
+        TapTargetView.showFor(this,
+                TapTarget.forView(recyclerView1, "See Featured Items", "")
+                        .outerCircleColor(R.color.app_red)
+                        .outerCircleAlpha(0.9f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(30)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextSize(20)
+                        .descriptionTextColor(R.color.white)
+                        .textColor(R.color.white)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(100),
+                new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        // Handle click event if needed
+                        currentTapTarget++;
+                        showNextTapTarget();
+                    }
+                });
+    }
 
     private void showSearchButtonTapTarget() {
         TapTargetView.showFor(this,
                 TapTarget.forView(searchButton, "Search for Restaurants", "Discover diverse restaurants by simply tapping this button.")
-                        .outerCircleColor(R.color.app_red)
+                        .outerCircleColor(R.color.app_beige)
                         .outerCircleAlpha(0.9f)
                         .targetCircleColor(R.color.white)
                         .titleTextSize(30)
