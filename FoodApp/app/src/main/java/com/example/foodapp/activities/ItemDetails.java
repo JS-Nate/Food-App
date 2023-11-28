@@ -27,12 +27,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodapp.R;
 import com.example.foodapp.ToolbarHandler;
 import com.example.foodapp.models.ModelMenuItem;
+import com.example.foodapp.models.ModelOrder;
+import java.time.LocalDate;
+
 
 public class ItemDetails extends AppCompatActivity {
     ImageButton homeButton, searchButton, orderButton, accountButton;
     int userID;
     int itemID;
     double sizePrice = 0;
+    int vendorID;
+    AppDatabase db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +50,6 @@ public class ItemDetails extends AppCompatActivity {
         itemID = intent.getIntExtra("item_id", 0);
         Log.d("Received in item page", "userID ->" + userID + "itemID ->" + itemID);
 
-
         // buttons on screen
         homeButton = findViewById(R.id.button1);
         searchButton = findViewById(R.id.button2);
@@ -54,11 +58,12 @@ public class ItemDetails extends AppCompatActivity {
         // Use the ToolbarHandler to handle the image buttons
         ToolbarHandler.handleImageButtons(userID, this, homeButton, searchButton, orderButton, accountButton);
 
-        AppDatabase db = new AppDatabase(this);
+        db = new AppDatabase(this);
         ModelMenuItem thisMenuItem = db.getMenuItem(itemID);
         String itemName = thisMenuItem.getItemName();
         String itemDescription = thisMenuItem.getItemDescription();
         String itemImage = thisMenuItem.getItemImage();
+        vendorID = thisMenuItem.getVendorID();
         double itemPrice = Double.valueOf(thisMenuItem.getItemPrice());
 
 
@@ -101,7 +106,6 @@ public class ItemDetails extends AppCompatActivity {
 
         // for the user to enter their amount
         EditText showAmount = findViewById(R.id.showAmount);
-
         Button addToOrder = findViewById(R.id.addToOrder);
 
         addToOrder.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +114,9 @@ public class ItemDetails extends AppCompatActivity {
                             //    tax * (itemquantity  * (default item price + size price))
                 double subTotal = 1.13*(Double.valueOf(showAmount.getText().toString())*(itemPrice + sizePrice));
                 Toast.makeText(getApplicationContext(), "Adding to Order", Toast.LENGTH_SHORT).show();
+
+                // check if an open order exists
+                ModelOrder order = db.getOrCreateOrder(userID, vendorID, LocalDate.now().toString(), subTotal);
 
             }
         });

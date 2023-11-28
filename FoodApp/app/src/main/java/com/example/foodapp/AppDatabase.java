@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelUser;
 import com.example.foodapp.models.ModelVendor;
+import com.example.foodapp.models.ModelOrder;
+import com.example.foodapp.models.ModelOrderItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -407,7 +409,85 @@ public class AppDatabase extends SQLiteOpenHelper {
         return menuItems;
     }
 
+    public List<ModelOrderItem> getOrderItems(int orderID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelOrderItem> orderItems = new ArrayList<>();
 
+        String queryStatement = "SELECT * FROM " + ORDER_ITEM_DB_TABLE +
+                " WHERE " + ORDER_ITEM_COLUMN_ORDER_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(queryStatement, new String[]{String.valueOf(orderID)});
+
+        if (cursor.moveToFirst()) { // The null check is not needed; moveToFirst() handles it
+            do {
+                ModelOrderItem modelOrderItem = new ModelOrderItem();
+                modelOrderItem.setId(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ID)));
+                modelOrderItem.setOrderId(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ORDER_ID)));
+                modelOrderItem.setItemId(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ITEM_ID)));
+                modelOrderItem.setQuantity(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_QUANTITY)));
+                modelOrderItem.setItemPrice(cursor.getDouble(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ITEM_PRICE)));
+                modelOrderItem.setSubtotal(cursor.getDouble(cursor.getColumnIndex(ORDER_ITEM_COLUMN_SUBTOTAL)));
+
+                orderItems.add(modelOrderItem);
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        db.close();
+        return orderItems;
+    }
+
+
+    public ModelOrder getOrCreateOrder(Integer userID, Integer vendorID, String date, Double subTotal) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ModelOrder order = null;
+
+        String queryStatement = "SELECT * FROM " + ORDER_DB_TABLE +
+                " WHERE " + ORDER_COLUMN_ORDER_STATUS + " = ? AND " + ORDER_COLUMN_USER_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(queryStatement, new String[]{"Pending", userID.toString()});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            order = new ModelOrder();
+            order.setId(cursor.getInt(cursor.getColumnIndex(ORDER_COLUMN_ID)));
+            order.setUserID(userID);
+            order.setVendorID(cursor.getInt(cursor.getColumnIndex(ORDER_COLUMN_VENDOR_ID)));
+            order.setDate(cursor.getString(cursor.getColumnIndex(ORDER_COLUMN_ORDER_DATE)));
+            order.setStatus("Pending");
+            order.setTotalAmount(cursor.getDouble(cursor.getColumnIndex(ORDER_COLUMN_TOTAL_AMOUNT)));
+        } else {
+
+            order = new ModelOrder();
+            order.setUserID(userID);
+            order.setVendorID(vendorID);
+            order.setDate(date);  // Set the current date
+            order.setTotalAmount(subTotal);
+            order.setStatus("Pending");
+            insertOrder(db, order);
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        db.close();
+        return order;
+    }
+
+    private void insertOrder(SQLiteDatabase db, ModelOrder order) {
+        ContentValues values = new ContentValues();
+        values.put(ORDER_COLUMN_USER_ID, order.getUserID());
+        values.put(ORDER_COLUMN_VENDOR_ID, order.getVendorID());
+        values.put(ORDER_COLUMN_ORDER_DATE, order.getDate());  // Make sure the date is in correct format
+        values.put(ORDER_COLUMN_ORDER_STATUS, order.getStatus());
+        values.put(ORDER_COLUMN_TOTAL_AMOUNT, order.getTotalAmount());
+
+        long id = db.insert(ORDER_DB_TABLE, null, values);
+        order.setId((int) id);
+    }
 
 
 
@@ -488,6 +568,8 @@ public class AppDatabase extends SQLiteOpenHelper {
         cursor.close();
         return totalOrders;
     }
+
+
 
 
     /****************** VENDOR TABLE ******************/

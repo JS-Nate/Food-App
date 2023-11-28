@@ -9,22 +9,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
 import com.example.foodapp.ToolbarHandler;
+import com.example.foodapp.models.ModelOrder;
+
+import java.time.LocalDate;
+import com.example.foodapp.AppDatabase;
 
 public class OrderPage extends AppCompatActivity {
     ImageButton homeButton, searchButton, orderButton, accountButton;
     int id;
+    AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
 
-
-
         Intent intent = getIntent();
         id = intent.getIntExtra("userId", 0);
         Log.d("Received in search page", "id ->" + id);
+
+        db = new AppDatabase(this);
+        ModelOrder order = db.getOrCreateOrder(id, 0, null, 0.0);
+
 
         // buttons on screen
         homeButton = findViewById(R.id.button1);
@@ -43,9 +51,5 @@ public class OrderPage extends AppCompatActivity {
                 // clear current order stuff form database
             }
         });
-
-
-
-
     }
 }
