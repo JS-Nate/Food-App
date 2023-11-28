@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="145dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardCornerRadius="9dp"
+        app:cardCornerRadius="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,7 +26,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#7A7A7A"
+            android:background="@color/app_beige"
             android:elevation="5dp">
 
             <androidx.cardview.widget.CardView
@@ -36,7 +36,7 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
                 android:id="@+id/imageCard"
-                app:cardCornerRadius="9dp"
+                app:cardCornerRadius="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <ImageView
@@ -59,9 +59,10 @@
                 android:layout_marginEnd="8dp"
                 android:text="Sample Item Title"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="11sp"
                 android:textStyle="bold"
+                android:fontFamily=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Description"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="parent"

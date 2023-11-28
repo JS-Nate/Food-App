@@ -79,7 +79,7 @@ public class ToolbarHandler {
 
 
         // Change color to a specific color
-        int color = ContextCompat.getColor(context, R.color.blue);
+        int color = ContextCompat.getColor(context, R.color.white);
         home.setImageTintList(ColorStateList.valueOf(color));
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class ToolbarHandler {
         // Add your logic for each image button
 
         // Change color to a specific color
-        int color = ContextCompat.getColor(context, R.color.blue);
+        int color = ContextCompat.getColor(context, R.color.white);
         search.setImageTintList(ColorStateList.valueOf(color));
 
 
@@ -179,7 +179,7 @@ public class ToolbarHandler {
         // Add your logic for each image button
 
         // Change color to a specific color
-        int color = ContextCompat.getColor(context, R.color.blue);
+        int color = ContextCompat.getColor(context, R.color.white);
         order.setImageTintList(ColorStateList.valueOf(color));
 
 
@@ -225,54 +225,54 @@ public class ToolbarHandler {
 
 
 
-    public static void handleImageButtonsFromAccount(int id, Context context, ImageButton home, ImageButton search, ImageButton order, ImageButton account) {
-        // Add your logic for each image button
-
-
-        // Change color to a specific color
-        int color = ContextCompat.getColor(context, R.color.blue);
-        account.setImageTintList(ColorStateList.valueOf(color));
-
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, HomePage.class);
-                intent.putExtra("userId", id);
-                Log.d("from toolbar Sent", "id = " + id);
-                v.getContext().startActivity(intent);
-                ((Activity) v.getContext()).finish();
-            }
-        });
-
-
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "search pressed", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(v.getContext(), SearchPage.class);
-                intent.putExtra("userId", id);
-                Log.d("from toolbar Sent", "id = " + id);
-                v.getContext().startActivity(intent);
-                ((Activity) v.getContext()).finish();
-
-            }
-        });
-
-
-        order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), OrderPage.class);
-                intent.putExtra("userId", id);
-                Log.d("from toolbar Sent", "id = " + id);
-                v.getContext().startActivity(intent);
-                ((Activity) v.getContext()).finish();
-            }
-        });
-
-    }
+//    public static void handleImageButtonsFromAccount(int id, Context context, ImageButton home, ImageButton search, ImageButton order, ImageButton account) {
+//        // Add your logic for each image button
+//
+//
+//        // Change color to a specific color
+//        int color = ContextCompat.getColor(context, R.color.blue);
+//        account.setImageTintList(ColorStateList.valueOf(color));
+//
+//
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, HomePage.class);
+//                intent.putExtra("userId", id);
+//                Log.d("from toolbar Sent", "id = " + id);
+//                v.getContext().startActivity(intent);
+//                ((Activity) v.getContext()).finish();
+//            }
+//        });
+//
+//
+//        search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(v.getContext(), "search pressed", Toast.LENGTH_SHORT).show();
+//
+//                Intent intent = new Intent(v.getContext(), SearchPage.class);
+//                intent.putExtra("userId", id);
+//                Log.d("from toolbar Sent", "id = " + id);
+//                v.getContext().startActivity(intent);
+//                ((Activity) v.getContext()).finish();
+//
+//            }
+//        });
+//
+//
+//        order.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), OrderPage.class);
+//                intent.putExtra("userId", id);
+//                Log.d("from toolbar Sent", "id = " + id);
+//                v.getContext().startActivity(intent);
+//                ((Activity) v.getContext()).finish();
+//            }
+//        });
+//
+//    }
 
 
 
