@@ -43,6 +43,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
+    implementation ("com.google.android.gms:play-services-maps:17.0.1")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+
 
 
     constraints {
