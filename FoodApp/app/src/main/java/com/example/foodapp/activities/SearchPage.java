@@ -30,7 +30,7 @@ public class SearchPage extends AppCompatActivity {
         orderButton = findViewById(R.id.button3);
         accountButton = findViewById(R.id.button4);
         // Use the ToolbarHandler to handle the image buttons
-        ToolbarHandler.handleImageButtonsFromSearch(id, this, homeButton, orderButton, accountButton);
+        ToolbarHandler.handleImageButtonsFromSearch(id, this, homeButton, searchButton, orderButton, accountButton);
 
 
 //        SearchView searchBar = findViewById(R.id.searchBar);

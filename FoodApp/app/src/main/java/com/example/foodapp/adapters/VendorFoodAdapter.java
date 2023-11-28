@@ -37,6 +37,11 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
         this.userID = userID;
     }
 
+    public void filterList(List<ModelMenuItem> filteredList) {
+        modelMenuItemList = filteredList;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override

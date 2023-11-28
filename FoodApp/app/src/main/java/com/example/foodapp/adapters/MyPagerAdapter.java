@@ -30,9 +30,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new FoodFragment(vendorID, userID); // Replace with your FoodFragment
             case 1:
-                return new DrinksFragment(vendorID); // Replace with your DrinksFragment
+                return new DrinksFragment(vendorID, userID); // Replace with your DrinksFragment
             case 2:
-                return new SearchFragment(vendorID); // Replace with your SearchFragment
+                return new SearchFragment(vendorID, userID); // Replace with your SearchFragment
             case 3:
                 return new AboutFragment(vendorID); // Replace with your AboutFragment
             case 4:

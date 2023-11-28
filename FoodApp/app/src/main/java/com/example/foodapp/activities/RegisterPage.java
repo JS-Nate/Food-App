@@ -61,11 +61,17 @@ public class RegisterPage extends AppCompatActivity {
                 // adds new user to database if inputs are valid
                 if(!checkFN && !checkLN && !checkEM && !checkPW){
                     Toast.makeText(getApplicationContext(), "Check", Toast.LENGTH_SHORT).show();
+
+                    // sets a new user's default avatar
+                    int resourceId = R.drawable.default_avatar;
+                    String userImage = String.valueOf(resourceId);
+
                     ModelUser modelUser = new ModelUser(
                             firstName.getText().toString(),
                             lastName.getText().toString(),
                             email.getText().toString(),
-                            password.getText().toString()
+                            password.getText().toString(),
+                            userImage
                     );
                     AppDatabase db = new AppDatabase(RegisterPage.this);
                     db.addUser(modelUser);

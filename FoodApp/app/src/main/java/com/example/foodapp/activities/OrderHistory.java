@@ -22,7 +22,7 @@ public class OrderHistory extends AppCompatActivity {
         orderButton = findViewById(R.id.button3);
         accountButton = findViewById(R.id.button4);
         // Use the ToolbarHandler to handle the image buttons
-        ToolbarHandler.handleImageButtons(id, this, homeButton, searchButton, orderButton, accountButton);
+        ToolbarHandler.handleImageButtonsFromOrder(id, this, homeButton, searchButton, orderButton, accountButton);
 
 
 

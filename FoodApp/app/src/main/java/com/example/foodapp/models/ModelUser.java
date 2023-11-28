@@ -8,21 +8,24 @@ public class ModelUser {
     String lastName;
     String email;
     String password;
+    String userImage;
 
     // class initialization of creating and storing user information, with and without an id
-    public ModelUser(String firstName, String lastName, String email, String password){
+    public ModelUser(String firstName, String lastName, String email, String password, String userImage){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.userImage = userImage;
     }
 
-    public ModelUser(int id, String firstName, String lastName, String email, String password){
+    public ModelUser(int id, String firstName, String lastName, String email, String password, String userImage){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.userImage = userImage;
     }
 
 
@@ -63,5 +66,13 @@ public class ModelUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 }
