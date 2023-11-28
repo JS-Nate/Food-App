@@ -115,8 +115,11 @@ public class ItemDetails extends AppCompatActivity {
                 double subTotal = 1.13*(Double.valueOf(showAmount.getText().toString())*(itemPrice + sizePrice));
                 Toast.makeText(getApplicationContext(), "Adding to Order", Toast.LENGTH_SHORT).show();
 
-                // check if an open order exists
+                // check if an open order exists, otherwise create a new one
                 ModelOrder order = db.getOrCreateOrder(userID, vendorID, LocalDate.now().toString(), subTotal);
+
+                // add item to order
+                db.addOrderItem(order.getId(), itemID, Integer.valueOf(showAmount.getText().toString()), subTotal);
 
             }
         });

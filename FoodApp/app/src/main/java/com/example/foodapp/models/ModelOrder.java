@@ -11,6 +11,7 @@ public class ModelOrder {
     private String status;
     private Double totalAmount;
 
+
     // Setters
     public void setId(Integer id) {
         this.id = id;

@@ -21,7 +21,7 @@ import java.util.List;
 public class AppDatabase extends SQLiteOpenHelper {
 
     // USER TABLE
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 8;
     private static String DB_NAME = "FoodApp.db";
     private static String USER_DB_TABLE = "users";
     private static String USER_COLUMN_ID = "user_id";
@@ -440,6 +440,32 @@ public class AppDatabase extends SQLiteOpenHelper {
         return orderItems;
     }
 
+    public ModelOrder getCurrentOrder(int userID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ModelOrder order = null;
+
+        String queryStatement = "SELECT * FROM " + ORDER_DB_TABLE +
+                " WHERE " + ORDER_COLUMN_ORDER_STATUS + " = ? AND " + ORDER_COLUMN_USER_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(queryStatement, new String[]{"Pending", String.valueOf(userID)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            order = new ModelOrder();
+            order.setId(cursor.getInt(cursor.getColumnIndex(ORDER_COLUMN_ID)));
+            order.setUserID(userID);
+            order.setVendorID(cursor.getInt(cursor.getColumnIndex(ORDER_COLUMN_VENDOR_ID)));
+            order.setDate(cursor.getString(cursor.getColumnIndex(ORDER_COLUMN_ORDER_DATE)));
+            order.setStatus("Pending");
+            order.setTotalAmount(cursor.getDouble(cursor.getColumnIndex(ORDER_COLUMN_TOTAL_AMOUNT)));
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        db.close();
+        return order;
+    }
 
     public ModelOrder getOrCreateOrder(Integer userID, Integer vendorID, String date, Double subTotal) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -477,6 +503,17 @@ public class AppDatabase extends SQLiteOpenHelper {
         return order;
     }
 
+    public void addOrderItem(int orderID, int itemID, int quantity, double subTotal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ORDER_ITEM_COLUMN_ORDER_ID, orderID);
+        contentValues.put(ORDER_ITEM_COLUMN_ITEM_ID, itemID);
+        contentValues.put(ORDER_ITEM_COLUMN_QUANTITY, quantity);
+        contentValues.put(ORDER_ITEM_COLUMN_ITEM_PRICE, subTotal / quantity);
+        contentValues.put(ORDER_ITEM_COLUMN_SUBTOTAL, subTotal);
+        db.insert(ORDER_ITEM_DB_TABLE, null, contentValues);
+    }
+
     private void insertOrder(SQLiteDatabase db, ModelOrder order) {
         ContentValues values = new ContentValues();
         values.put(ORDER_COLUMN_USER_ID, order.getUserID());
@@ -488,6 +525,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         long id = db.insert(ORDER_DB_TABLE, null, values);
         order.setId((int) id);
     }
+
 
 
 

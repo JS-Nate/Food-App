@@ -14,8 +14,14 @@ import com.example.foodapp.R;
 import com.example.foodapp.ToolbarHandler;
 import com.example.foodapp.models.ModelOrder;
 
-import java.time.LocalDate;
-import com.example.foodapp.AppDatabase;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import com.example.foodapp.models.ModelOrderItem;
+import com.example.foodapp.models.ModelMenuItem;
+import java.util.List;
+import com.example.foodapp.adapters.OrderItemAdapter;
+
+
 
 public class OrderPage extends AppCompatActivity {
     ImageButton homeButton, searchButton, orderButton, accountButton;
@@ -30,8 +36,29 @@ public class OrderPage extends AppCompatActivity {
         id = intent.getIntExtra("userId", 0);
         Log.d("Received in search page", "id ->" + id);
 
+        // Get pending order
         db = new AppDatabase(this);
-        ModelOrder order = db.getOrCreateOrder(id, 0, null, 0.0);
+        ModelOrder order = db.getCurrentOrder(id);
+
+
+        if (order != null) {
+            RecyclerView orderTable = findViewById(R.id.orderTable);
+            orderTable.setLayoutManager(new LinearLayoutManager(this)); // or use GridLayoutManager
+
+            List<ModelOrderItem> orderItems = db.getOrderItems(order.getId());
+
+            for (ModelOrderItem item : orderItems) {
+                ModelMenuItem menuItem = db.getMenuItem(item.getItemId()); // Your method to get menu item
+                item.setItemName(menuItem.getItemName()); // Set the name in ModelOrderItem
+            }
+
+//            for (ModelOrderItem item : orderItems) {
+//                Log.d("Order item", item.toString());
+//            }
+
+            OrderItemAdapter adapter = new OrderItemAdapter(orderItems);
+            orderTable.setAdapter(adapter);
+        }
 
 
         // buttons on screen

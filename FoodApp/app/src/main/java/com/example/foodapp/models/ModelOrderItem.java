@@ -1,5 +1,7 @@
 package com.example.foodapp.models;
 
+import java.util.List;
+
 public class ModelOrderItem {
     private Integer id;
     private Integer orderId;
@@ -7,6 +9,15 @@ public class ModelOrderItem {
     private Integer quantity;
     private Double itemPrice;
     private Double subtotal;
+    private String itemName; //placeholder
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
     // Constructor
     public ModelOrderItem() {

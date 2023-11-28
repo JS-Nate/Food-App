@@ -5,9 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.foodapp.models.ModelOrderItem;
+import com.example.foodapp.models.ModelMenuItem;
 import java.util.List;
 import androidx.annotation.NonNull;
 import com.example.foodapp.R;
+import android.widget.TextView;
+import java.util.Locale;
 
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
@@ -28,8 +31,16 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         ModelOrderItem item = orderItemList.get(position);
-        // Bind data from item to holder views
+        // Set the item name
+        holder.tvItemName.setText(item.getItemName());
+
+        // Set the quantity
+        holder.tvQuantity.setText(String.valueOf(item.getQuantity()));
+
+        // Set the price
+        holder.tvPrice.setText(String.format(Locale.getDefault(), "$%.2f", item.getSubtotal()));
     }
+
 
     @Override
     public int getItemCount() {
@@ -37,11 +48,15 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     }
 
     static class OrderItemViewHolder extends RecyclerView.ViewHolder {
-        // Define view elements from your order_item_layout
+        TextView tvItemName;
+        TextView tvQuantity;
+        TextView tvPrice;
 
         public OrderItemViewHolder(View itemView) {
             super(itemView);
-            // Initialize view elements
+            tvItemName = itemView.findViewById(R.id.tvItemName);
+            tvQuantity = itemView.findViewById(R.id.tvQuantity);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
         }
     }
 }
