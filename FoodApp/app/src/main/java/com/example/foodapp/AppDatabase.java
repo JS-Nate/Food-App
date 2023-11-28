@@ -181,7 +181,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(USER_COLUMN_LAST_NAME, "Smith");
         contentValues.put(USER_COLUMN_EMAIL, "student.smith@email.com");
         contentValues.put(USER_COLUMN_PASSWORD, "Password123");
-        contentValues.put(USER_COLUMN_USER_IMAGE, String.valueOf(R.drawable.default_avatar));
+        contentValues.put(USER_COLUMN_USER_IMAGE, "res:drawable/default_avatar");
         db.insert(USER_DB_TABLE, null, contentValues);
 
         // add some vendor
