@@ -86,15 +86,11 @@ public class OrderPage extends AppCompatActivity {
                 if (order == null) {
                     return;
                 }
-             //   db.setOrderStatus(order.getId(),"Submitted");
-
                 Intent intent = new Intent(OrderPage.this, PaymentInformation.class);
                 intent.putExtra("userId", id);
+                intent.putExtra("orderId", order.getId());
                 Log.d("from toolbar Sent", "id = " + id);
                 startActivity(intent);
-
-
-             //   Toast.makeText(getApplicationContext(), "Your order has been submitted!", Toast.LENGTH_SHORT).show();
             }
         });
     }

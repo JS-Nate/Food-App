@@ -21,7 +21,7 @@ import java.util.List;
 public class AppDatabase extends SQLiteOpenHelper {
 
     // USER TABLE
-    private static final int DB_VERSION = 8;
+    private static final int DB_VERSION = 11;
     private static String DB_NAME = "FoodApp.db";
     private static String USER_DB_TABLE = "users";
     private static String USER_COLUMN_ID = "user_id";
@@ -48,6 +48,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     private static String VENDOR_COLUMN_VENDOR_LONGITUDE = "vendor_longitude";
     private static String VENDOR_COLUMN_VENDOR_LATITUDE  = "vendor_latitude";
     private static String VENDOR_COLUMN_VENDOR_CONTACT = "vendor_contact";
+    private static String VENDOR_COLUMN_VENDOR_VIDEO = "vendor_video";
 
     // MENU ITEMS TABLE
     private static String MENU_ITEM_DB_TABLE = "menu_items";
@@ -98,6 +99,7 @@ public class AppDatabase extends SQLiteOpenHelper {
                 VENDOR_COLUMN_VENDOR_DESCRIPTION + " TEXT," +
                 VENDOR_COLUMN_VENDOR_LONGITUDE + " REAL," +
                 VENDOR_COLUMN_VENDOR_LATITUDE + " REAL," +
+                VENDOR_COLUMN_VENDOR_VIDEO + " TEXT," +
                 VENDOR_COLUMN_VENDOR_CONTACT + " TEXT" + ")";
         db.execSQL(query);
 
@@ -170,10 +172,6 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
     // For testing purposes
     public void seedDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -193,6 +191,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 43.9862672);
         contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, -78.8445777);
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (905) 436-8080");
+        contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "tim_hortons_vendor");
         db.insert(VENDOR_DB_TABLE, null, contentValues);
 
         // add some vendor
@@ -202,6 +201,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 23.9862672);
         contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, 98.8445777);
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (123) 456-7890");
+        contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "pizza_vendor");
         db.insert(VENDOR_DB_TABLE, null, contentValues);
 
         // add some order
@@ -642,7 +642,7 @@ public class AppDatabase extends SQLiteOpenHelper {
 
     public ModelVendor getVendorFromId(int ID){
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] query = new String[]{VENDOR_COLUMN_ID, VENDOR_COLUMN_VENDOR_NAME, VENDOR_COLUMN_VENDOR_DESCRIPTION, VENDOR_COLUMN_VENDOR_LONGITUDE, VENDOR_COLUMN_VENDOR_LATITUDE, VENDOR_COLUMN_VENDOR_DESCRIPTION};
+        String[] query = new String[]{VENDOR_COLUMN_ID, VENDOR_COLUMN_VENDOR_NAME, VENDOR_COLUMN_VENDOR_DESCRIPTION, VENDOR_COLUMN_VENDOR_LONGITUDE, VENDOR_COLUMN_VENDOR_LATITUDE, VENDOR_COLUMN_VENDOR_DESCRIPTION, VENDOR_COLUMN_VENDOR_VIDEO};
         Cursor cursor = db.query(VENDOR_DB_TABLE, query, VENDOR_COLUMN_ID + "=?", new String[]{String.valueOf(ID)}, null, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()){
@@ -652,7 +652,8 @@ public class AppDatabase extends SQLiteOpenHelper {
                     cursor.getString(2),
                     cursor.getDouble(3),
                     cursor.getDouble(4),
-                    cursor.getString(5)
+                    cursor.getString(5),
+                    cursor.getString(6)
             );
         }
         else{

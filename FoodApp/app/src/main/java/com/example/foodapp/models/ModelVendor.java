@@ -9,24 +9,28 @@ public class ModelVendor {
     public double latitude;
     public String contact;
 
+    public String vendorVideo;
+
 
     public ModelVendor(){}
 
-    public ModelVendor(String name, String description, double longitude, double latitude, String contact){
+    public ModelVendor(String name, String description, double longitude, double latitude, String contact, String vendorVideo){
         this.name = name;
         this.description = description;
         this.longitude = longitude;
         this.latitude = latitude;
         this.contact = contact;
+        this.vendorVideo = vendorVideo;
     }
 
-    public ModelVendor(int id, String name, String description, double longitude, double latitude, String contact){
+    public ModelVendor(int id, String name, String description, double longitude, double latitude, String contact, String vendorVideo){
         this.id = id;
         this.name = name;
         this.description = description;
         this.longitude = longitude;
         this.latitude = latitude;
         this.contact = contact;
+        this.vendorVideo = vendorVideo;
     }
 
     public Integer getId() {
@@ -39,6 +43,10 @@ public class ModelVendor {
 
     public String getName() {
         return name;
+    }
+
+    public String getVendorVideo() {
+        return vendorVideo;
     }
 
     public void setName(String name) {
