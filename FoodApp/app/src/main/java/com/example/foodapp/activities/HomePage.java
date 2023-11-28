@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,28 +48,36 @@ public class HomePage extends AppCompatActivity {
     // current user's id
     int userID;
 
+    private static final String TUTORIAL_COMPLETED_KEY = "tutorial_completed";
     private int currentTapTarget = 1; // Keeps track of the current TapTarget
 
     private void showNextTapTarget() {
-        switch (currentTapTarget) {
-            case 1:
-                showHomeButtonTapTarget();
-                break;
-            case 2:
-                showFeaturedItemsTapTarget();
-                break;
-            case 3:
-                showSearchButtonTapTarget();
-                break;
-            case 4:
-                showOrderButtonTapTarget();
-                break;
-            case 5:
-                showAccountButtonTapTarget();
+        // Check if the tutorial has been completed
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        boolean tutorialCompleted = sharedPreferences.getBoolean(TUTORIAL_COMPLETED_KEY, false);
+        if (!tutorialCompleted) {
+            switch (currentTapTarget) {
+                case 1:
+                    showHomeButtonTapTarget();
+                    break;
+                case 2:
+                    showFeaturedItemsTapTarget();
+                    break;
+                case 3:
+                    showSearchButtonTapTarget();
+                    break;
+                case 4:
+                    showOrderButtonTapTarget();
+                    break;
+                case 5:
+                    showAccountButtonTapTarget();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(TUTORIAL_COMPLETED_KEY, true);
+                    editor.apply();
+                    break;
 
-                break;
-
-            // Add cases for other buttons as needed
+                // Add cases for other buttons as needed
+            }
         }
     }
 
