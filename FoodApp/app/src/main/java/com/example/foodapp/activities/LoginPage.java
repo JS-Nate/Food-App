@@ -28,7 +28,7 @@ public class LoginPage extends AppCompatActivity {
     boolean isPasswordVisible = false;
 
     // to display error message
-    TextView errorMessage;
+    TextView errorMessage, forget;
 
     private AppDatabase db;
 
@@ -52,6 +52,7 @@ public class LoginPage extends AppCompatActivity {
         errorMessage = findViewById(R.id.errorMessage);
         showPassword = findViewById(R.id.showPassword);
         register = findViewById(R.id.register);
+        forget = findViewById(R.id.btn_forget);
 
 
         // temporary prefilled login to make testing easier
@@ -74,7 +75,14 @@ public class LoginPage extends AppCompatActivity {
                 isPasswordVisible = !isPasswordVisible;
             }
         });
-
+        forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginPage.this, ForgetPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // to submit the user's login info
         submitLogin.setOnClickListener(new View.OnClickListener() {
