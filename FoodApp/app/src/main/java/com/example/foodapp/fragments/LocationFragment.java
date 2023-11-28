@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.example.foodapp.models.ModelVendor;
 
 
 public class LocationFragment extends Fragment {
@@ -27,6 +29,7 @@ public class LocationFragment extends Fragment {
     private MapView mapView;
     private GoogleMap gMap;
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
+    AppDatabase db;
 
     public LocationFragment(){}
 
@@ -40,12 +43,14 @@ public class LocationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
+        db = new AppDatabase(getActivity());
 
         // You can find the TextView and set its text here
         TextView textView = view.findViewById(R.id.textViewSearch);
 
+        ModelVendor modelVendor = db.getVendorFromId(vendorId);
         ImageView staticMapImageView = view.findViewById(R.id.static_map_image_view);
-        String location = "40.714728,-73.998672";
+        String location = modelVendor.getLatitude() + "," + modelVendor.getLongitude(); // Location coordinates
         String size = "600x300"; // Size of the static map
         int zoom = 15; // Zoom level
         String apiKey = "AIzaSyB4ZrzZOqc1ImcxA-c9xOlMedPoz40Xl6c"; // api key
