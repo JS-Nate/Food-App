@@ -10,9 +10,6 @@
 <!--    this will list a vendor's food items in the food tab of the VendorDetails' FoodFragment-->
 
 
-
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:backgroundTint="#9A9A9A"

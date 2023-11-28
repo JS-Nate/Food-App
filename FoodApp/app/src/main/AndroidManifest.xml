@@ -15,6 +15,9 @@
         android:theme="@style/Theme.FoodApp"
         tools:targetApi="31">
         <activity
+            android:name=".fragments.ItemBottomSheetFragment"
+            android:exported="false" />
+        <activity
             android:name=".activities.PaymentInformation"
             android:exported="false" />
         <activity

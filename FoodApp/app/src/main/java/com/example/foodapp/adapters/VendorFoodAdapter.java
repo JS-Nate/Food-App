@@ -10,11 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.R;
 import com.example.foodapp.activities.ItemDetails;
+import com.example.foodapp.fragments.ItemBottomSheetFragment;
 import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelVendor;
 import com.squareup.picasso.Picasso;
@@ -80,15 +82,18 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), "Clicked on " + itemName.getText().toString() + " user id " + userID, Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(v.getContext(), ItemDetails.class);
+//                    Intent intent = new Intent(v.getContext(), ItemDetails.class);
+//
+//                    // Pass any necessary data to the detail activity using intent extras
+//                    intent.putExtra("item_id", modelMenuItemList.get(getAdapterPosition()).getId());
+//                    intent.putExtra("userID", userID);
+//                    // Add other data as needed
+//
+//                    // Start the detail activity
+//                    v.getContext().startActivity(intent);
 
-                    // Pass any necessary data to the detail activity using intent extras
-                    intent.putExtra("item_id", modelMenuItemList.get(getAdapterPosition()).getId());
-                    intent.putExtra("userID", userID);
-                    // Add other data as needed
+                    showItemBottomSheet(v.getContext(), userID, modelMenuItemList.get(getAdapterPosition()).getId());
 
-                    // Start the detail activity
-                    v.getContext().startActivity(intent);
 
 
                 }
@@ -97,4 +102,16 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
 
         }
     }
+
+
+
+
+
+    private static void showItemBottomSheet(Context context, int userID, int itemID) {
+        ItemBottomSheetFragment itemBottomSheetFragment = new ItemBottomSheetFragment(userID, itemID);
+        itemBottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), itemBottomSheetFragment.getTag());
+    }
+
+
+
 }

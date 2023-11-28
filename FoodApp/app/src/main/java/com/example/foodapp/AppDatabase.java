@@ -420,12 +420,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) { // The null check is not needed; moveToFirst() handles it
             do {
                 ModelOrderItem modelOrderItem = new ModelOrderItem();
-                modelOrderItem.setId(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ID)));
-                modelOrderItem.setOrderId(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ORDER_ID)));
-                modelOrderItem.setItemId(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ITEM_ID)));
-                modelOrderItem.setQuantity(cursor.getInt(cursor.getColumnIndex(ORDER_ITEM_COLUMN_QUANTITY)));
-                modelOrderItem.setItemPrice(cursor.getDouble(cursor.getColumnIndex(ORDER_ITEM_COLUMN_ITEM_PRICE)));
-                modelOrderItem.setSubtotal(cursor.getDouble(cursor.getColumnIndex(ORDER_ITEM_COLUMN_SUBTOTAL)));
+                modelOrderItem.setId(cursor.getInt(0));
+                modelOrderItem.setOrderId(cursor.getInt(1));
+                modelOrderItem.setItemId(cursor.getInt(2));
+                modelOrderItem.setQuantity(cursor.getInt(3));
+                modelOrderItem.setItemPrice(cursor.getDouble(4));
+                modelOrderItem.setSubtotal(cursor.getDouble(5));
 
                 orderItems.add(modelOrderItem);
             } while (cursor.moveToNext());

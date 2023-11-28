@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +24,8 @@ import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
 import com.example.foodapp.activities.ItemDetails;
 import com.example.foodapp.activities.VendorDetails;
+import com.example.foodapp.fragments.AccountBottomSheetFragment;
+import com.example.foodapp.fragments.ItemBottomSheetFragment;
 import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelVendor;
 import com.squareup.picasso.Picasso;
@@ -37,6 +40,7 @@ public class HomeHorAdapter extends RecyclerView.Adapter<HomeHorAdapter.ViewHold
     Context context;
     private List<ModelMenuItem> modelMenuItemList;
     int userID;
+    int itemID;
 
     public HomeHorAdapter(Context context, List<ModelMenuItem> list, int userID){
         this.context = context;
@@ -54,6 +58,7 @@ public class HomeHorAdapter extends RecyclerView.Adapter<HomeHorAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull HomeHorAdapter.ViewHolder holder, int position) {
+
         AppDatabase db = new AppDatabase(context);
 
         ModelMenuItem modelMenuItem = modelMenuItemList.get(position);
@@ -63,11 +68,9 @@ public class HomeHorAdapter extends RecyclerView.Adapter<HomeHorAdapter.ViewHold
         holder.itemVendor.setText(itemVendorName);
 
         String itemImage = modelMenuItem.getItemImage();
-//        if(itemImage != null){
-//            holder.itemImage.setImageURI(Uri.parse(itemImage));
-            Picasso.get().load(itemImage).into(holder.itemImage);
+        Picasso.get().load(itemImage).into(holder.itemImage);
 
-//        }
+
     }
 
     @Override
@@ -92,17 +95,22 @@ public class HomeHorAdapter extends RecyclerView.Adapter<HomeHorAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Clicked " + itemName.getText().toString(), Toast.LENGTH_SHORT).show();
-                    // Create an intent to start the ItemDetailActivity
-                    Intent intent = new Intent(context, ItemDetails.class);
+                    Toast.makeText(v.getContext(), "Clicked " + modelMenuItemList.get(getAdapterPosition()).getId(), Toast.LENGTH_SHORT).show();
+//                    // Create an intent to start the ItemDetailActivity
+//                    Intent intent = new Intent(context, ItemDetails.class);
+//
+//                    // Pass any necessary data to the detail activity using intent extras
+//                    intent.putExtra("item_id", modelMenuItemList.get(getAdapterPosition()).getId());
+//                    intent.putExtra("userID", userID);
+//                    // Add other data as needed
+//
+//                    // Start the detail activity
+//                    context.startActivity(intent);
+//
+//
+//
+                    showItemBottomSheet(v.getContext(), userID, modelMenuItemList.get(getAdapterPosition()).getId());
 
-                    // Pass any necessary data to the detail activity using intent extras
-                    intent.putExtra("item_id", modelMenuItemList.get(getAdapterPosition()).getId());
-                    intent.putExtra("userID", userID);
-                    // Add other data as needed
-
-                    // Start the detail activity
-                    context.startActivity(intent);
                 }
             });
 
@@ -110,5 +118,21 @@ public class HomeHorAdapter extends RecyclerView.Adapter<HomeHorAdapter.ViewHold
 
 
         }
+
     }
+
+
+
+
+
+
+    private static void showItemBottomSheet(Context context, int userID, int itemID) {
+        ItemBottomSheetFragment itemBottomSheetFragment = new ItemBottomSheetFragment(userID, itemID);
+        itemBottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), itemBottomSheetFragment.getTag());
+    }
+
+
+
+
+
 }
