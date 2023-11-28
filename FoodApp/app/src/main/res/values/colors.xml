@@ -8,5 +8,9 @@
     <color name="lime">#A3DC39</color>
     <color name="cyan">#00D4C2</color>
     <color name="blue">#03A9F4</color>
+    <color name="app_dark_gray">#474042</color>
+    <color name="app_mid_gray">#6E6468</color>
+    <color name="app_beige">#E9D2A8</color>
+    <color name="app_red">#D23642</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>
