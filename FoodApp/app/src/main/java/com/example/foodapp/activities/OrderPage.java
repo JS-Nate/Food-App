@@ -20,13 +20,18 @@ import com.example.foodapp.models.ModelOrderItem;
 import com.example.foodapp.models.ModelMenuItem;
 import java.util.List;
 import com.example.foodapp.adapters.OrderItemAdapter;
+import android.widget.Toast;
+import android.widget.TextView;
 
-
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class OrderPage extends AppCompatActivity {
     ImageButton homeButton, searchButton, orderButton, accountButton;
     int id;
     AppDatabase db;
+    Double totalAmount;
+    ModelOrder order;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +43,8 @@ public class OrderPage extends AppCompatActivity {
 
         // Get pending order
         db = new AppDatabase(this);
-        ModelOrder order = db.getCurrentOrder(id);
-
-
+        order = db.getCurrentOrder(id);
+        totalAmount = 0.0;
         if (order != null) {
             RecyclerView orderTable = findViewById(R.id.orderTable);
             orderTable.setLayoutManager(new LinearLayoutManager(this)); // or use GridLayoutManager
@@ -50,16 +54,22 @@ public class OrderPage extends AppCompatActivity {
             for (ModelOrderItem item : orderItems) {
                 ModelMenuItem menuItem = db.getMenuItem(item.getItemId()); // Your method to get menu item
                 item.setItemName(menuItem.getItemName()); // Set the name in ModelOrderItem
+                totalAmount = totalAmount + item.getSubtotal();
             }
 
-//            for (ModelOrderItem item : orderItems) {
-//                Log.d("Order item", item.toString());
-//            }
-
+            // add the list of items
             OrderItemAdapter adapter = new OrderItemAdapter(orderItems);
             orderTable.setAdapter(adapter);
-        }
 
+            // display total
+            TextView totalText = findViewById(R.id.totalAmount);
+
+            // Assuming totalAmount is a Number (like Integer, Double, etc.)
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+            String formattedTotal = currencyFormat.format(totalAmount);
+
+            totalText.setText(formattedTotal);
+        }
 
         // buttons on screen
         homeButton = findViewById(R.id.button1);
@@ -69,13 +79,20 @@ public class OrderPage extends AppCompatActivity {
         // Use the ToolbarHandler to handle the image buttons
         ToolbarHandler.handleImageButtonsFromOrder(id, this, homeButton, searchButton, orderButton, accountButton);
 
-
         Button submitOrder = findViewById(R.id.submitOrder);
         submitOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // add to history of order table
-                // clear current order stuff form database
+                if (order == null) {
+                    return;
+                }
+             //   db.setOrderStatus(order.getId(),"Submitted");
+
+                Intent intent = new Intent(OrderPage.this, PaymentInformation.class);
+                startActivity(intent);
+
+
+             //   Toast.makeText(getApplicationContext(), "Your order has been submitted!", Toast.LENGTH_SHORT).show();
             }
         });
     }

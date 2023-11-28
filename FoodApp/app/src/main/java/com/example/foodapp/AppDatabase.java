@@ -257,7 +257,6 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.49);
         db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
 
-
         // add some menu item
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 2);
@@ -467,6 +466,12 @@ public class AppDatabase extends SQLiteOpenHelper {
         return order;
     }
 
+    public void setOrderStatus(int orderID, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ORDER_COLUMN_ORDER_STATUS, status);
+        db.update(ORDER_DB_TABLE, contentValues, ORDER_COLUMN_ID + " = ?", new String[]{String.valueOf(orderID)});
+    }
     public ModelOrder getOrCreateOrder(Integer userID, Integer vendorID, String date, Double subTotal) {
         SQLiteDatabase db = this.getReadableDatabase();
         ModelOrder order = null;
