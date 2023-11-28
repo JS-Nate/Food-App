@@ -101,7 +101,7 @@ public class LoginPage extends AppCompatActivity {
                     int userId = db.getUserId(email.getText().toString(), password.getText().toString());
 
                     if (userId != -1) {
-                        Toast.makeText(getApplicationContext(), "user exists in database", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "user exists in database", Toast.LENGTH_SHORT).show();
                         // Intent to enter the Home Page
                         Intent intent = new Intent(LoginPage.this, HomePage.class);
                         intent.putExtra("userId", userId);

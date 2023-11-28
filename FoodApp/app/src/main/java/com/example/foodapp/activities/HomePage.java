@@ -156,8 +156,8 @@ public class HomePage extends AppCompatActivity {
         recyclerView2 = findViewById(R.id.home_ver_rec);
         modelVendorList = db.getVendors();
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        layoutManager2.setReverseLayout(true);
-        layoutManager2.setStackFromEnd(true);
+        layoutManager2.setReverseLayout(false);
+        layoutManager2.setStackFromEnd(false);
         recyclerView2.setLayoutManager(layoutManager2);
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setNestedScrollingEnabled(false);
