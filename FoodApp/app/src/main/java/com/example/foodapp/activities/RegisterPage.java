@@ -2,7 +2,10 @@ package com.example.foodapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ public class RegisterPage extends AppCompatActivity {
     EditText firstName, lastName, email, password;
     Button submitButton;
     TextView errorFN, errorLN, errorEM, errorPW;
+    Uri selectedImageUri;
+
 
 
     @Override
@@ -63,15 +68,16 @@ public class RegisterPage extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Check", Toast.LENGTH_SHORT).show();
 
                     // sets a new user's default avatar
-                    int resourceId = R.drawable.default_avatar;
-                    String userImage = String.valueOf(resourceId);
+                    Resources res = getResources();
+                    selectedImageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + res.getResourcePackageName(R.drawable.default_avatar) + '/' + res.getResourceTypeName(R.drawable.default_avatar) + '/' + res.getResourceEntryName(R.drawable.default_avatar));
+
 
                     ModelUser modelUser = new ModelUser(
                             firstName.getText().toString(),
                             lastName.getText().toString(),
                             email.getText().toString(),
                             password.getText().toString(),
-                            userImage
+                            selectedImageUri.toString()
                     );
                     AppDatabase db = new AppDatabase(RegisterPage.this);
                     db.addUser(modelUser);

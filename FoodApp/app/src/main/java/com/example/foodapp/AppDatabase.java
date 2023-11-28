@@ -181,7 +181,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(USER_COLUMN_LAST_NAME, "Smith");
         contentValues.put(USER_COLUMN_EMAIL, "student.smith@email.com");
         contentValues.put(USER_COLUMN_PASSWORD, "Password123");
-        contentValues.put(USER_COLUMN_USER_IMAGE, "res:drawable/default_avatar");
+        contentValues.put(USER_COLUMN_USER_IMAGE, "android.resource://com.example.foodapp/drawable/default_avatar");
         db.insert(USER_DB_TABLE, null, contentValues);
 
         // add some vendor
@@ -535,6 +535,28 @@ public class AppDatabase extends SQLiteOpenHelper {
 
 
     /****************** USER TABLE ******************/
+
+
+    public int updateUser(int id, ModelUser updatedUser){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updatedValues = new ContentValues();
+        updatedValues.put(USER_COLUMN_FIRST_NAME, updatedUser.getFirstName());
+        updatedValues.put(USER_COLUMN_LAST_NAME, updatedUser.getLastName());
+        updatedValues.put(USER_COLUMN_EMAIL, updatedUser.getEmail());
+        updatedValues.put(USER_COLUMN_PASSWORD, updatedUser.getPassword());
+        updatedValues.put(USER_COLUMN_USER_IMAGE, updatedUser.getUserImage());
+        return db.update(
+                USER_DB_TABLE,
+                updatedValues,
+                USER_COLUMN_ID + " =?",
+                new String[]{String.valueOf(id)}
+        );
+
+    }
+
+
+
+
 
     // checks if a given user's credentials exist in the database upon login
     public boolean userExists(String email, String password){
