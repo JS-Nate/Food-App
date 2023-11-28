@@ -19,13 +19,13 @@ import com.example.foodapp.adapters.HomeVerAdapter;
 import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelUser;
 import com.example.foodapp.models.ModelVendor;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
 public class HomePage extends AppCompatActivity {
-
-
 
     TextView welcomeMessage;
 
@@ -47,6 +47,26 @@ public class HomePage extends AppCompatActivity {
     // current user's id
     int userID;
 
+    private int currentTapTarget = 1; // Keeps track of the current TapTarget
+
+    private void showNextTapTarget() {
+        switch (currentTapTarget) {
+            case 1:
+                showHomeButtonTapTarget();
+                break;
+            case 2:
+                showSearchButtonTapTarget();
+                break;
+            case 3:
+                showOrderButtonTapTarget();
+                break;
+            case 4:
+                showAccountButtonTapTarget();
+                break;
+
+            // Add cases for other buttons as needed
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +93,7 @@ public class HomePage extends AppCompatActivity {
         welcomeMessage = findViewById(R.id.welcomeMessage);
         welcomeMessage.setText("Hi " + thisUser.getFirstName());
 
-
-
-
-
-
-
+        showNextTapTarget();
 
 
 
@@ -163,4 +178,118 @@ public class HomePage extends AppCompatActivity {
 
 
     }
+
+    private void showHomeButtonTapTarget() {
+        TapTargetView.showFor(this,
+                TapTarget.forView(homeButton, "This is the Home Button", "Experience seamless navigation to the app's main page with just a click!")
+                        .outerCircleColor(R.color.app_dark_gray)
+                        .outerCircleAlpha(0.9f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(30)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextSize(20)
+                        .descriptionTextColor(R.color.white)
+                        .textColor(R.color.white)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(60),
+                new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        // Handle click event if needed
+                        currentTapTarget++;
+                        showNextTapTarget();
+                    }
+                });
+    }
+
+
+    private void showSearchButtonTapTarget() {
+        TapTargetView.showFor(this,
+                TapTarget.forView(searchButton, "Search for Restaurants", "Discover diverse restaurants by simply tapping this button.")
+                        .outerCircleColor(R.color.app_red)
+                        .outerCircleAlpha(0.9f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(30)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextSize(20)
+                        .descriptionTextColor(R.color.white)
+                        .textColor(R.color.white)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(60),
+                new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        // Handle click event if needed
+                        currentTapTarget++;
+                        showNextTapTarget();
+                    }
+                });
+    }
+
+    private void showOrderButtonTapTarget() {
+        TapTargetView.showFor(this,
+                TapTarget.forView(orderButton, "View Orders", "Tap the bag icon to explore the current contents of your shopping bag!")
+                        .outerCircleColor(R.color.app_brown)
+                        .outerCircleAlpha(0.9f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(30)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextSize(20)
+                        .descriptionTextColor(R.color.white)
+                        .textColor(R.color.white)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(60),
+                new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                        // Handle click event if needed
+                        currentTapTarget++;
+                        showNextTapTarget();
+                    }
+                });
+    }
+
+    private void showAccountButtonTapTarget() {
+        TapTargetView.showFor(this,
+                TapTarget.forView(accountButton, "User Profile", "Your profile information is right at your fingertips—explore it here!")
+                        .outerCircleColor(R.color.app_mid_gray)
+                        .outerCircleAlpha(0.9f)
+                        .targetCircleColor(R.color.white)
+                        .titleTextSize(30)
+                        .titleTextColor(R.color.white)
+                        .descriptionTextSize(20)
+                        .descriptionTextColor(R.color.white)
+                        .textColor(R.color.white)
+                        .dimColor(R.color.black)
+                        .drawShadow(true)
+                        .cancelable(false)
+                        .tintTarget(true)
+                        .transparentTarget(true)
+                        .targetRadius(60),
+                new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+//                        // Handle click event if needed
+//                        currentTapTarget++;
+//                        showNextTapTarget();
+                    }
+                });
+    }
+
 }
