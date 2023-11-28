@@ -2,6 +2,7 @@ package com.example.foodapp.fragments;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -59,6 +60,7 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,7 +94,30 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
 
 
         // for the user to enter their amount
-        EditText showAmount = view.findViewById(R.id.showAmount);
+        TextView add = view.findViewById(R.id.add);
+        TextView sub = view.findViewById(R.id.sub);
+        TextView showAmount = view.findViewById(R.id.showAmount);
+        int more = 1;
+        add.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String presentValStr=showAmount.getText().toString();
+                int presentIntVal=Integer.parseInt(presentValStr);
+                presentIntVal++;
+                showAmount.setText(String.valueOf(presentIntVal));
+            }
+        });
+        sub.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String presentValStr=showAmount.getText().toString();
+                int presentIntVal=Integer.parseInt(presentValStr);
+                presentIntVal--;
+                showAmount.setText(String.valueOf(presentIntVal));
+            }
+        });
         Button addToOrder = view.findViewById(R.id.addToOrder);
         yourPrice.setText("Your Price: $" + (iPrice));
 

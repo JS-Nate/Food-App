@@ -53,7 +53,7 @@ public class HomeVerAdapter extends RecyclerView.Adapter<HomeVerAdapter.ViewHold
     public void onBindViewHolder(@NonNull HomeVerAdapter.ViewHolder holder, int position) {
         ModelVendor modelVendor = modelVendorList.get(position);
         holder.name.setText(modelVendor.getName());
-        holder.description.setText(modelVendor.getId().toString() + ", " + modelVendor.getDescription());
+        holder.description.setText(modelVendor.getId().toString() + ". " + modelVendor.getDescription());
     }
 
     @Override

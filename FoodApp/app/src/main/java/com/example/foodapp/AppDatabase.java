@@ -197,7 +197,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         // add some vendor
         contentValues = new ContentValues();
         contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Pizza Restaurant");
-        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "This is a pizza place");
+        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "This pizza place uses local farm sourced ingredients to provide fresh pizza ");
         contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 98.8445777);
         contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, 23.9862672);
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (123) 456-7890");
@@ -216,7 +216,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         // add some menu item
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
-        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Avocado Toasttt");
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Avocado Toast");
         contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "For all you hippies");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);

@@ -9,8 +9,9 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/bottom_toolbar" />
-
+        layout="@layout/bottom_toolbar"
+        tools:layout_editor_absoluteX="-36dp"
+        tools:layout_editor_absoluteY="-278dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -38,34 +39,35 @@
         android:id="@+id/submitOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Complete Order"
+        android:text="Proceed to checkout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintVertical_bias="0.546" />
 
     <TextView
         android:id="@+id/totalLabel"
         android:layout_width="32dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="36dp"
         android:text="Total"
-        app:layout_constraintTop_toBottomOf="@+id/orderTable"
-        tools:layout_editor_absoluteX="55dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderTable" />
 
     <TextView
         android:id="@+id/totalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="12dp"
         android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/totalLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/include"
-        app:layout_constraintTop_toBottomOf="@+id/orderTable" />
+        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderTable"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
