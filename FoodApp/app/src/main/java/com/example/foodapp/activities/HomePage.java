@@ -31,7 +31,6 @@ public class HomePage extends AppCompatActivity {
 
     // on screen buttons
     ImageButton homeButton, searchButton, orderButton, accountButton;
-
     RecyclerView recyclerView1, recyclerView2;
     HomeVerAdapter homeVerAdapter;
     HomeHorAdapter homeHorAdapter;

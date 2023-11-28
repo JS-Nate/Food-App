@@ -89,6 +89,8 @@ public class OrderPage extends AppCompatActivity {
              //   db.setOrderStatus(order.getId(),"Submitted");
 
                 Intent intent = new Intent(OrderPage.this, PaymentInformation.class);
+                intent.putExtra("userId", id);
+                Log.d("from toolbar Sent", "id = " + id);
                 startActivity(intent);
 
 

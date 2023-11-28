@@ -18,6 +18,16 @@ import com.example.foodapp.activities.SearchPage;
 import com.example.foodapp.fragments.AccountBottomSheetFragment;
 
 public class ToolbarHandler {
+
+
+
+
+
+
+
+
+
+
     public static void handleImageButtons(int id, Context context, ImageButton home, ImageButton search, ImageButton order, ImageButton account) {
         // Add your logic for each image button
 
