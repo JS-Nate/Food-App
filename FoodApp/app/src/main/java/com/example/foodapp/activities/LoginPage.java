@@ -75,6 +75,9 @@ public class LoginPage extends AppCompatActivity {
                 isPasswordVisible = !isPasswordVisible;
             }
         });
+
+
+
         forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

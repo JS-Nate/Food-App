@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
+import com.example.foodapp.activities.LoginPage;
 import com.example.foodapp.models.ModelUser;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -121,6 +122,9 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 // return to login page and finish()
+                Intent intent = new Intent(v.getContext(), LoginPage.class);
+                startActivity(intent);
+                ((Activity) v.getContext()).finish();
             }
         });
 

@@ -602,6 +602,29 @@ public class AppDatabase extends SQLiteOpenHelper {
         return userId;
     }
 
+
+
+    // finds gets the user's id based on their email for restoring their password
+    public int getUserIdFromEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int userId = -1;
+        String query = "SELECT " + USER_COLUMN_ID + " FROM " + USER_DB_TABLE +
+                " WHERE " + USER_COLUMN_EMAIL + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(USER_COLUMN_ID);
+            if (columnIndex >= 0) {
+                userId = cursor.getInt(columnIndex);
+            }
+        }
+        cursor.close();
+        return userId;
+    }
+
+
+
+
+
     // to get info of a specific user based on its ID
     public ModelUser getUser(int ID) {
         SQLiteDatabase db = this.getReadableDatabase();
