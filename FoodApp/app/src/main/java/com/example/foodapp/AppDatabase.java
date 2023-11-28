@@ -21,7 +21,7 @@ import java.util.List;
 public class AppDatabase extends SQLiteOpenHelper {
 
     // USER TABLE
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 12;
     private static String DB_NAME = "FoodApp.db";
     private static String USER_DB_TABLE = "users";
     private static String USER_COLUMN_ID = "user_id";
@@ -188,8 +188,8 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Tim Hortons");
         contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "Tim Hortons serves coffee, donuts, sandwiches, and other fast-food items");
-        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 43.9862672);
-        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, -78.8445777);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, -78.8934687);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, 43.9449244);
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (905) 436-8080");
         contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "tim_hortons_vendor");
         db.insert(VENDOR_DB_TABLE, null, contentValues);
@@ -198,8 +198,8 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Pizza Restaurant");
         contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "This is a pizza place");
-        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 23.9862672);
-        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, 98.8445777);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 98.8445777);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, 23.9862672);
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (123) 456-7890");
         contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "pizza_vendor");
         db.insert(VENDOR_DB_TABLE, null, contentValues);

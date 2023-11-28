@@ -21,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.foodapp.models.ModelVendor;
+import android.util.Log;
 
 
 public class LocationFragment extends Fragment {
@@ -59,8 +60,10 @@ public class LocationFragment extends Fragment {
                 + "center=" + location
                 + "&zoom=" + zoom
                 + "&size=" + size
+                + "&markers=color:red%7Clabel:S%7C" + location
                 + "&key=" + apiKey;
 
+        Log.d("Static Map", "Static map url: " + staticMapUrl);
         Glide.with(this)
                 .load(staticMapUrl)
                 .into(staticMapImageView);
