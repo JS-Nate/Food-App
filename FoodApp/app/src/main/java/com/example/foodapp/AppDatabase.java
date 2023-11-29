@@ -451,6 +451,14 @@ public class AppDatabase extends SQLiteOpenHelper {
         return menuItems;
     }
 
+
+
+
+
+
+    /****************** ORDER ITEM TABLE ******************/
+
+
     public List<ModelOrderItem> getOrderItems(int orderID) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelOrderItem> orderItems = new ArrayList<>();
@@ -573,6 +581,29 @@ public class AppDatabase extends SQLiteOpenHelper {
         long id = db.insert(ORDER_DB_TABLE, null, values);
         order.setId((int) id);
     }
+
+    // Delete an order item by ID
+    public void deleteOrderItem(int orderItemId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            db.beginTransaction();
+            // Delete the order item
+            db.delete(ORDER_ITEM_DB_TABLE, ORDER_ITEM_COLUMN_ID + " = ?",
+                    new String[]{String.valueOf(orderItemId)});
+
+            // Commit the transaction
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // End the transaction
+            db.endTransaction();
+        }
+    }
+
+
+
+
 
 
 

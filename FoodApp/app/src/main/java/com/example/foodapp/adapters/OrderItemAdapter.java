@@ -9,6 +9,8 @@ import com.example.foodapp.models.ModelMenuItem;
 import java.util.List;
 import androidx.annotation.NonNull;
 import com.example.foodapp.R;
+
+import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.Locale;
 
@@ -16,10 +18,21 @@ import java.util.Locale;
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
 
     private List<ModelOrderItem> orderItemList;
+    private static OnDeleteItemClickListener onDeleteItemClickListener; // Add this member variable
 
-    public OrderItemAdapter(List<ModelOrderItem> orderItemList) {
+
+//    public OrderItemAdapter(List<ModelOrderItem> orderItemList) {
+//        this.orderItemList = orderItemList;
+//    }
+
+    public OrderItemAdapter(List<ModelOrderItem> orderItemList, OnDeleteItemClickListener onDeleteItemClickListener) {
         this.orderItemList = orderItemList;
+        this.onDeleteItemClickListener = onDeleteItemClickListener;
     }
+
+
+
+
 
     @NonNull
     @Override
@@ -47,16 +60,39 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         return orderItemList.size();
     }
 
+
+
+
+    //mine
+    public interface OnDeleteItemClickListener {
+        void onDeleteItemClick(int position);
+    }
+
+
     static class OrderItemViewHolder extends RecyclerView.ViewHolder {
         TextView tvItemName;
         TextView tvQuantity;
         TextView tvPrice;
+        ImageButton tvDelete;
 
         public OrderItemViewHolder(View itemView) {
             super(itemView);
             tvItemName = itemView.findViewById(R.id.tvItemName);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            tvDelete = itemView.findViewById(R.id.tvDelete);
+
+
+
+            //mine
+            tvDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onDeleteItemClickListener != null) {
+                        onDeleteItemClickListener.onDeleteItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }

@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
+import com.example.foodapp.activities.ChangeInfo;
 import com.example.foodapp.activities.LoginPage;
 import com.example.foodapp.models.ModelUser;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -31,7 +32,7 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
 
     private TextView userName, userEmail, other;
     ImageButton logout;
-    Button changeIcon, saveIcon;
+    Button changeIcon, changeInfo;
     ImageView userImage;
     private int userID;
     Uri selectedImageUri;
@@ -57,6 +58,7 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
         userEmail = view.findViewById(R.id.userEmail);
         userImage = view.findViewById(R.id.userImage);
         changeIcon = view.findViewById(R.id.changeIcon);
+        changeInfo = view.findViewById(R.id.changeInfo);
         logout = view.findViewById(R.id.logout);
         other = view.findViewById(R.id.other);
 
@@ -112,6 +114,14 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
 
                 int rowsAffected = db.updateUser(userID, updatingUser);
 //                dismiss();
+            }
+        });
+
+
+        changeInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChangeInfo.class);
             }
         });
 

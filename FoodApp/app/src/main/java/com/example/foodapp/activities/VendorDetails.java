@@ -10,8 +10,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.foodapp.AppDatabase;
@@ -24,7 +26,9 @@ import com.example.foodapp.fragments.FoodFragment;
 import com.example.foodapp.fragments.LocationFragment;
 import com.example.foodapp.fragments.SearchFragment;
 import com.example.foodapp.models.ModelVendor;
+import com.example.foodapp.models.ModelVendorImage;
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +38,25 @@ public class VendorDetails extends AppCompatActivity {
 
     int vendorId;
     TextView name, restaurantDescription;
-
     TabLayout tabLayout;
     ViewPager viewPager;
-//    ViewPager2 viewPager;
+
+
+    private ImageView vendorImage;
+    private List<ModelVendorImage> vendorImages;
+    private int currentPosition = 0;
+    private static final int SLIDESHOW_INTERVAL = 4000;
+
+    private final Handler handler = new Handler();
+
+    // Define the runnable that will be executed to update the image
+    private final Runnable updateImageRunnable = new Runnable() {
+        @Override
+        public void run() {
+            updateImage();
+            handler.postDelayed(this, SLIDESHOW_INTERVAL);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +66,11 @@ public class VendorDetails extends AppCompatActivity {
 
         AppDatabase db = new AppDatabase(this);
         Intent intent = getIntent();
-
-
         vendorId = intent.getIntExtra("vendorID", 0);
         int userID = intent.getIntExtra("userID", 0);
+
         ModelVendor modelVendor = db.getVendorFromId(vendorId);
+
 
         Log.d("Received in vendor page", "id ->" + userID);
 
@@ -66,10 +85,13 @@ public class VendorDetails extends AppCompatActivity {
         name = findViewById(R.id.restaurantTitle);
         name.setText(modelVendor.getName().toString().trim());
 
-//        restaurantDescription = findViewById(R.id.restaurantDescription);
-//        restaurantDescription.setText(modelVendor.getDescription().toString().trim());
 
-        /* old */
+        vendorImage = findViewById(R.id.displayImages);
+
+        this.vendorImages = db.getVendorImages(vendorId);
+
+
+
 //        // Set up ViewPager
         viewPager = findViewById(R.id.viewPager);
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), vendorId, userID);
@@ -80,8 +102,34 @@ public class VendorDetails extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
+        // Start the slideshow
+        startSlideshow();
+
+    }
 
 
+
+
+    private void startSlideshow() {
+        // Start the slideshow when the activity is created
+        handler.postDelayed(updateImageRunnable, SLIDESHOW_INTERVAL);
+    }
+
+    private void updateImage() {
+        if (vendorImages != null && !vendorImages.isEmpty()) {
+            // Update the image based on the current position in the list
+            Picasso.get().load(vendorImages.get(currentPosition).getImage()).into(vendorImage);
+
+            // Move to the next position in the list
+            currentPosition = (currentPosition + 1) % vendorImages.size();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Stop the slideshow when the activity is destroyed to avoid memory leaks
+        handler.removeCallbacks(updateImageRunnable);
+        super.onDestroy();
     }
 
 

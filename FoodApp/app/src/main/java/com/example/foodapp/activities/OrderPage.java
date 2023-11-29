@@ -26,12 +26,14 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class OrderPage extends AppCompatActivity {
+public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnDeleteItemClickListener {
     ImageButton homeButton, searchButton, orderButton, accountButton;
     int id;
     AppDatabase db;
     Double totalAmount;
     ModelOrder order;
+    List<ModelOrderItem> orderItems;
+    RecyclerView orderTable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +48,12 @@ public class OrderPage extends AppCompatActivity {
         order = db.getCurrentOrder(id);
         totalAmount = 0.0;
         if (order != null) {
-            RecyclerView orderTable = findViewById(R.id.orderTable);
-            orderTable.setLayoutManager(new LinearLayoutManager(this)); // or use GridLayoutManager
 
-            List<ModelOrderItem> orderItems = db.getOrderItems(order.getId());
+            // added the This.
+            this.orderTable = findViewById(R.id.orderTable);
+            this.orderTable.setLayoutManager(new LinearLayoutManager(this)); // or use GridLayoutManager
+
+            orderItems = db.getOrderItems(order.getId());
 
             for (ModelOrderItem item : orderItems) {
                 ModelMenuItem menuItem = db.getMenuItem(item.getItemId()); // Your method to get menu item
@@ -57,9 +61,16 @@ public class OrderPage extends AppCompatActivity {
                 totalAmount = totalAmount + item.getSubtotal();
             }
 
+//            // add the list of items
+//            OrderItemAdapter adapter = new OrderItemAdapter(orderItems);
+//            orderTable.setAdapter(adapter);
+
+            //mine
             // add the list of items
-            OrderItemAdapter adapter = new OrderItemAdapter(orderItems);
+            OrderItemAdapter adapter = new OrderItemAdapter(orderItems, this);
             orderTable.setAdapter(adapter);
+
+
 
             // display total
             TextView totalText = findViewById(R.id.totalAmount);
@@ -94,4 +105,43 @@ public class OrderPage extends AppCompatActivity {
             }
         });
     }
+
+
+
+    //mine
+    // Implement the onDeleteItemClick method
+    @Override
+    public void onDeleteItemClick(int position) {
+        // Handle item deletion here
+        if (order != null && position >= 0 && position < orderItems.size()) {
+            ModelOrderItem deletedItem = orderItems.remove(position);
+            // Remove the item from the database
+            db.deleteOrderItem(deletedItem.getId());
+            // Notify the adapter that the data set has changed
+            orderTable.getAdapter().notifyItemRemoved(position);
+            // Recalculate totalAmount
+            recalculateTotalAmount();
+        }
+    }
+
+    private void recalculateTotalAmount() {
+        totalAmount = 0.0;
+        for (ModelOrderItem item : orderItems) {
+            totalAmount += item.getSubtotal();
+        }
+        // Update the total text view
+        TextView totalText = findViewById(R.id.totalAmount);
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        String formattedTotal = currencyFormat.format(totalAmount);
+        totalText.setText(formattedTotal);
+    }
+
+
+
+
+
+
+
+
+
 }
