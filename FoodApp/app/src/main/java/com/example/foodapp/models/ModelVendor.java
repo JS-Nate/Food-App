@@ -8,7 +8,6 @@ public class ModelVendor {
     public double longitude;
     public double latitude;
     public String contact;
-
     public String vendorVideo;
 
 

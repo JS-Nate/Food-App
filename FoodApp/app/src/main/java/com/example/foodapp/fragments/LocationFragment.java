@@ -48,6 +48,7 @@ public class LocationFragment extends Fragment {
 
         // You can find the TextView and set its text here
         TextView textView = view.findViewById(R.id.textViewSearch);
+        TextView phoneNumber = view.findViewById(R.id.phoneNumber);
 
         ModelVendor modelVendor = db.getVendorFromId(vendorId);
         ImageView staticMapImageView = view.findViewById(R.id.static_map_image_view);
@@ -67,6 +68,24 @@ public class LocationFragment extends Fragment {
         Glide.with(this)
                 .load(staticMapUrl)
                 .into(staticMapImageView);
+
+        String contact = "";
+        if(vendorId == 1){
+            contact = "Phone: (905) 436-8080";
+        }
+        else if(vendorId == 2){
+            contact = "Phone: (123) 456-7890";
+        }
+        else if(vendorId == 3){
+            contact = "Phone: (123) 456-7890";
+        }
+        else if(vendorId == 4){
+            contact = "Phone: (098) 765-4321";
+        }
+        phoneNumber.setText(contact);
+
+
+
         return view;
     }
 

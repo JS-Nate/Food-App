@@ -71,7 +71,7 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
         selectedImageUri = Uri.parse(thisUser.getUserImage());
 
 
-        other.setText(selectedImageUri.toString()); // display the string that the image is being stored as
+//        other.setText(selectedImageUri.toString()); // display the string that the image is being stored as
 
 
 
@@ -122,6 +122,8 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChangeInfo.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
             }
         });
 
@@ -137,8 +139,6 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -148,7 +148,6 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 1 && resultCode == RESULT_OK) {
             selectedImageUri = data.getData();
             userImage.setImageURI(selectedImageUri);

@@ -201,6 +201,29 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "pizza_vendor");
         db.insert(VENDOR_DB_TABLE, null, contentValues);
 
+        // add some vendor
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Outback Steakhouse");
+        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "Australian-themed casual dining restaurants, serving American cuisine, based in Tampa, Florida.");
+        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 38.883333);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, -77);
+        contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (123) 456-7890");
+        contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "outback_steakhouse_vendor");
+        db.insert(VENDOR_DB_TABLE, null, contentValues);
+
+        // add some vendor
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "A&W");
+        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "We have burgers");
+        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 38.2388516);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, -76.523293);
+        contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (098) 765-4321");
+        contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "a_w_vendor");
+        db.insert(VENDOR_DB_TABLE, null, contentValues);
+
+
+
+
         // add some vendor image
         contentValues = new ContentValues();
         contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 1);
@@ -224,6 +247,19 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 2);
         contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://dynl.mktgcdn.com/p/hxJgH_gPUGuHQPqGidqaJNMl9pbQqLO7esOuNzfyw8o/496x344.png");
         db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
+        // add some vendor image
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 3);
+        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://mocoshow.com/wp-content/uploads/2023/03/D9063D11-06B1-4EA7-8376-A6AE4893B153.jpeg");
+        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
+        // add some vendor image
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 4);
+        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://d1ralsognjng37.cloudfront.net/1228ff38-2e42-4238-9a85-c8b4ebec9cb5.webp");
+        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
 
 //        // add some vendor image
 //        contentValues = new ContentValues();
@@ -301,13 +337,165 @@ public class AppDatabase extends SQLiteOpenHelper {
         // add some menu item
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 2);
-        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Coke");
-        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "this is cocaine");
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Coca-Cola");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Coca-Cola");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://138794804.cdn6.editmysite.com/uploads/1/3/8/7/138794804/s132994155277906853_p18_i3_w1200.jpeg");
         contentValues.put(MENU_ITEM_COLUMN_PRICE, 2.59);
         db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 2);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Sprite");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Coca-Cola");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://m.media-amazon.com/images/I/71-29yqCPzL.jpg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 2.59);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 3);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Sprite");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Coca-Cola");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://m.media-amazon.com/images/I/71-29yqCPzL.jpg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 2.59);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 4);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Sprite");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Coca-Cola");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://m.media-amazon.com/images/I/71-29yqCPzL.jpg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 2.59);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 3);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Beer");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Beer");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://hips.hearstapps.com/del.h-cdn.co/assets/cm/15/11/3200x3272/54f65d39ab05d_-_183341797.jpg?resize=980:*");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 3.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Iced-Cappuccino");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Iced-Cap");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://canuckeats.com/cdn/shop/articles/spLKatwVITPVyiwTgpnIF5IeszcCuf3XHHAKTIqRLlO4x0SQUL.jpg?v=1670892344&width=500");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Frozen Lemonade");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Lemonade");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://images.chickadvisor.com/item/29532/375/eb119a87a3c6bba5c0d255511f4889ec.jpg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Real Fruit Smoothie");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Smoothie");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://lh6.googleusercontent.com/-TqvPTYLVz9k/TYQZoes4_1I/AAAAAAAAAjA/i0U7X22uMIw/s1600/thsmooth.jpg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Hot Chocolate");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "hot chocolate");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://timhortons.ph/upload/assets/waV0epb0ljWzndJrKL01AvPs1fkz8VkF3nGACHjr0PK3rYHjeB.jpg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Steak & Cheese panini");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "steak and cheese manini");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://i.ytimg.com/vi/bzOnwe7RVjQ/maxresdefault.jpg");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 4.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+
+        // add some menu item
+        contentValues = new ContentValues();
+        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Bacon Breakfast Wrap");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "bacon wrap");
+        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
+        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://cdn.winsightmedia.com/platform/files/public/2019-05/background/tim-hornton_1556823574.jpg?VersionId=lGLVAFSP9o2SjPPUMn7HCD25f5BzA.C8");
+        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+//        // add some menu item
+//        contentValues = new ContentValues();
+//        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+//        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "");
+//        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "");
+//        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
+//        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+//        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "");
+//        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+//        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+//
+//        // add some menu item
+//        contentValues = new ContentValues();
+//        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+//        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "");
+//        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "");
+//        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
+//        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+//        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "");
+//        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+//        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+//
+//        // add some menu item
+//        contentValues = new ContentValues();
+//        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
+//        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "");
+//        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "");
+//        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
+//        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
+//        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "");
+//        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
+//        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
+
+
+
+
+
+
+
+
+
+
 
         // add some order item
         contentValues = new ContentValues();

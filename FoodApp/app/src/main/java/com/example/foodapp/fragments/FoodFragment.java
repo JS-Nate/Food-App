@@ -56,7 +56,8 @@ public class FoodFragment extends Fragment {
         foodList.setAdapter(vendorFoodAdapter);
 
 
-        textView.setText(" food list : " + modelMenuItemList.size());
+//        textView.setText(" Food list : " + modelMenuItemList.size());
+        textView.setText(" Food list");
 
 
 

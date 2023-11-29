@@ -60,8 +60,8 @@ public class DrinksFragment extends Fragment{
         // For testing purposes, to ensure the menu list is functioning
         TextView textView = view.findViewById(R.id.title);
         // textView.setText(thisVendor.getName() + " food list here: ");
-        textView.setText(" Drink list : " + modelMenuItemList.size());
-
+//        textView.setText(" Drink list : " + modelMenuItemList.size());
+        textView.setText(" Drink list : ");
 
         return view;
     }

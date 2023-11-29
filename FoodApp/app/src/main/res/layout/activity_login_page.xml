@@ -7,31 +7,70 @@
     tools:context=".activities.LoginPage">
 
     <!--    page title-->
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login Page"
-        android:textSize="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
 
     <!--    email input-->
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="Email"
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Foodles"-->
+<!--        android:textSize="70dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.056" />-->
+
+<!--    <ImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="180dp"-->
+<!--        android:src="@drawable/app_logo"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.01"/>-->
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="310dp"
+        android:layout_height="180dp"
+        app:cardCornerRadius="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.01">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/app_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.01"/>
+
+    </androidx.cardview.widget.CardView>
+
 
     <!--    password input-->
+
+    <!--    show/hide password button-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.28" />
+
     <EditText
         android:id="@+id/password"
         android:layout_width="250dp"
@@ -39,11 +78,23 @@
         android:hint="Password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373" />
+        app:layout_constraintVertical_bias="0.421" />
 
-    <!--    show/hide password button-->
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.329" />
+
     <ImageButton
         android:id="@+id/showPassword"
         android:layout_width="wrap_content"
@@ -52,10 +103,10 @@
         android:src="@drawable/visibility_off_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375" />
+        app:layout_constraintVertical_bias="0.421" />
 
     <!--    display error message if login not found-->
     <TextView
@@ -124,10 +175,10 @@
         android:textColor="#57a0d4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.534" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
