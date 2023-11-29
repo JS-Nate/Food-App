@@ -204,7 +204,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         // add some vendor
         contentValues = new ContentValues();
         contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Outback Steakhouse");
-        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "Australian-themed casual dining restaurants, serving American cuisine, based in Tampa, Florida.");
+        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "Australian themed casual dining restaurants, serving American cuisine, based in Tampa, Florida.");
         contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 38.883333);
         contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, -77);
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (123) 456-7890");
