@@ -25,6 +25,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.foodapp.R;
 import com.example.foodapp.activities.VendorDetails;
+import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelVendor;
 
 import java.util.List;
@@ -41,6 +42,12 @@ public class HomeVerAdapter extends RecyclerView.Adapter<HomeVerAdapter.ViewHold
         this.inflater = LayoutInflater.from(context);
         this.modelVendorList = list;
         this.userID = userID;
+    }
+
+
+    public void filterList(List<ModelVendor> filteredList) {
+        modelVendorList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull

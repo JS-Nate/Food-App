@@ -1,19 +1,32 @@
 package com.example.foodapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
 import com.example.foodapp.ToolbarHandler;
+import com.example.foodapp.adapters.HomeVerAdapter;
+import com.example.foodapp.models.ModelMenuItem;
+import com.example.foodapp.models.ModelVendor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchPage extends AppCompatActivity {
     ImageButton homeButton, searchButton, orderButton, accountButton;
+    List<ModelVendor> modelVendorList;
+    HomeVerAdapter homeVerAdapter;
     int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,27 +46,52 @@ public class SearchPage extends AppCompatActivity {
         ToolbarHandler.handleImageButtonsFromSearch(id, this, homeButton, searchButton, orderButton, accountButton);
 
 
-//        SearchView searchBar = findViewById(R.id.searchBar);
+        EditText searchBar = findViewById(R.id.searchBar);
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filter(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+
+
+
+
+
+        AppDatabase db = new AppDatabase(SearchPage.this);
         RecyclerView searchRecyclerView = findViewById(R.id.searchRecyclerView);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        modelVendorList = db.getVendors();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        layoutManager.setReverseLayout(false);
+        layoutManager.setStackFromEnd(false);
+        searchRecyclerView.setLayoutManager(layoutManager);
+        searchRecyclerView.setHasFixedSize(true);
+        searchRecyclerView.setNestedScrollingEnabled(false);
+        homeVerAdapter = new HomeVerAdapter(this, modelVendorList, id);
+        searchRecyclerView.setAdapter(homeVerAdapter);
 
 
     }
+
+    // added for searching by filtering based on the user search
+    private void filter(String query) {
+        List<ModelVendor> filteredList = new ArrayList<>();
+        for (ModelVendor modelVendor : modelVendorList) {
+            if (modelVendor.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(modelVendor);
+            }
+        }
+        homeVerAdapter.filterList(filteredList);
+    }
+
+
+
+
+
 }

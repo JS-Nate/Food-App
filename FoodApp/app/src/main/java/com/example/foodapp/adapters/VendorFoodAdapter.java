@@ -56,7 +56,7 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
     public void onBindViewHolder(@NonNull VendorFoodAdapter.ViewHolder holder, int position) {
         ModelMenuItem modelMenuItem = modelMenuItemList.get(position);
         holder.itemName.setText(modelMenuItem.getItemName());
-        holder.itemPrice.setText(String.valueOf(modelMenuItem.getItemPrice())); // Assuming ItemPrice is int, update accordingly
+        holder.itemPrice.setText("$" + String.valueOf(modelMenuItem.getItemPrice())); // Assuming ItemPrice is int, update accordingly
         String imageString = modelMenuItem.getItemImage();
 
         // trying to load image via Picasso

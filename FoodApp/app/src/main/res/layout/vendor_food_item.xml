@@ -12,9 +12,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:backgroundTint="#9A9A9A"
+        android:backgroundTint="@color/app_beige"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,34 +31,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/itemImage"
-                    android:layout_width="130dp"
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/itemCard"
+                    android:layout_width="110dp"
                     android:layout_height="110dp"
+                    android:layout_marginStart="2dp"
+                    app:cardCornerRadius="50dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <ImageView
+                        android:id="@+id/itemImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/itemImage"
+                    app:layout_constraintStart_toEndOf="@+id/itemCard"
                     app:layout_constraintTop_toTopOf="parent">
 
 
                     <TextView
                         android:id="@+id/itemName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="180dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="8dp"
                         android:text="sample food title"
                         android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textSize="25sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.124"
+                        app:layout_constraintHorizontal_bias="0.173"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,12 +89,14 @@
                         android:id="@+id/itemPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="200dp"
+                        android:layout_marginStart="196dp"
                         android:text="price$$"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.23" />
+                        app:layout_constraintVertical_bias="0.506" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

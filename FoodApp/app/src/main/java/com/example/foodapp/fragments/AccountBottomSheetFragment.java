@@ -92,8 +92,6 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 // bring up camera to save to imageview
-                // update database with it
-                // close the bottomsheet popup
                 ContentValues values = new ContentValues();
                 selectedImageUri = view.getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -101,6 +99,7 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
                 startCamera.launch(cameraIntent);
                 other.setText(selectedImageUri.toString()); // display the string that the image is being stored as
 
+                // update database with it
                 ModelUser updatingUser = new ModelUser(
                         thisUser.getId(),
                         thisUser.getFirstName(),
