@@ -29,6 +29,7 @@ import com.example.foodapp.R;
 public class AboutFragment extends Fragment {
 
     private VideoView videoView;
+    TextView textViewAbout;
     AppDatabase db;
 
     private int vendorId;
@@ -47,6 +48,7 @@ public class AboutFragment extends Fragment {
 
         db = new AppDatabase(getActivity());
         ModelVendor vendor = db.getVendorFromId(vendorId);
+        textViewAbout.setText(vendor.getDescription());
         int videoResourceId = getResources().getIdentifier(vendor.getVendorVideo(), "raw", getActivity().getPackageName());
 
         Log.d("Video", "Video resource id: " + videoResourceId);
@@ -70,7 +72,7 @@ public class AboutFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
         // You can find the TextView and set its text here
-        TextView textView = view.findViewById(R.id.textViewSearch);
+        textViewAbout = view.findViewById(R.id.textViewAbout);
 
 
         videoView = view.findViewById(R.id.video_view);

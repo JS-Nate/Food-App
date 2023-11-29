@@ -23,10 +23,13 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
 import com.example.foodapp.activities.VendorDetails;
 import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelVendor;
+import com.example.foodapp.models.ModelVendorImage;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,6 +42,7 @@ public class HomeVerAdapter extends RecyclerView.Adapter<HomeVerAdapter.ViewHold
     int userID;
 
     public HomeVerAdapter(Context context, List<ModelVendor> list, int userID) {
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.modelVendorList = list;
         this.userID = userID;
@@ -58,9 +62,30 @@ public class HomeVerAdapter extends RecyclerView.Adapter<HomeVerAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull HomeVerAdapter.ViewHolder holder, int position) {
+        AppDatabase db = new AppDatabase(context);
         ModelVendor modelVendor = modelVendorList.get(position);
+
+        List<ModelVendorImage> vendorImages = db.getVendorImages(modelVendor.getId());
+//        ModelVendorImage chosenModelVendorImage = vendorImages.get(0);
+//        String thisImage = chosenModelVendorImage.getImage();
+//        Picasso.get().load(thisImage).into(holder.vendorImage);
+
+
+        // Check if the list is not empty before accessing its elements
+        if (!vendorImages.isEmpty()) {
+            ModelVendorImage chosenModelVendorImage = vendorImages.get(0);
+            String thisImage = chosenModelVendorImage.getImage();
+            Picasso.get().load(thisImage).into(holder.vendorImage);
+        } else {
+            // Handle the case where there are no images
+            // For example, you can set a default image or leave it empty
+            holder.vendorImage.setImageResource(R.drawable.no_image);
+        }
+
+
+
         holder.name.setText(modelVendor.getName());
-        holder.description.setText(modelVendor.getId().toString() + ". " + modelVendor.getDescription());
+//        holder.description.setText(modelVendor.getId().toString() + ". " + modelVendor.getDescription());
     }
 
     @Override
@@ -71,12 +96,14 @@ public class HomeVerAdapter extends RecyclerView.Adapter<HomeVerAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, description;
+        ImageView vendorImage;
         CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.vendorName);
             description = itemView.findViewById(R.id.vendorDescription);
+            vendorImage = itemView.findViewById(R.id.vendorImage);
             cardView = itemView.findViewById(R.id.cardView);
 
 

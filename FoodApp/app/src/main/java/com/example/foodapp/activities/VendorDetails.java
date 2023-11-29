@@ -66,8 +66,8 @@ public class VendorDetails extends AppCompatActivity {
         name = findViewById(R.id.restaurantTitle);
         name.setText(modelVendor.getName().toString().trim());
 
-        restaurantDescription = findViewById(R.id.restaurantDescription);
-        restaurantDescription.setText(modelVendor.getDescription().toString().trim());
+//        restaurantDescription = findViewById(R.id.restaurantDescription);
+//        restaurantDescription.setText(modelVendor.getDescription().toString().trim());
 
         /* old */
 //        // Set up ViewPager

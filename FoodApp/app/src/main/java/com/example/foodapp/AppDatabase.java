@@ -14,6 +14,7 @@ import com.example.foodapp.models.ModelUser;
 import com.example.foodapp.models.ModelVendor;
 import com.example.foodapp.models.ModelOrder;
 import com.example.foodapp.models.ModelOrderItem;
+import com.example.foodapp.models.ModelVendorImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public class AppDatabase extends SQLiteOpenHelper {
 
     // USER TABLE
-    private static final int DB_VERSION = 12;
+    private static final int DB_VERSION = 13;
     private static String DB_NAME = "FoodApp.db";
     private static String USER_DB_TABLE = "users";
     private static String USER_COLUMN_ID = "user_id";
@@ -73,7 +74,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     // VENDOR IMAGES TABLE
     private static String VENDOR_IMAGES_DB_TABLE = "vendor_images";
     private static String VENDOR_IMAGES_COLUMN_ID = "vendor_image_id";
-    private static String VENDOR_IMAGES_COLUMN_VENDOR_ID = "vendor_image_vendor_id";
+    private static String VENDOR_IMAGES_COLUMN_VENDOR_ID = "vendor_image_vendor_id"; // the id of the vendor this image belongs to
     private static String VENDOR_IMAGES_COLUMN_IMAGE = "vendor_image_image";
 
 
@@ -139,23 +140,18 @@ public class AppDatabase extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + ORDER_ITEM_COLUMN_ORDER_ID + ") REFERENCES Orders("+ ORDER_COLUMN_ID + ")," +
                 "FOREIGN KEY (" + ORDER_ITEM_COLUMN_ITEM_ID + ") REFERENCES MenuItems("+ MENU_ITEM_COLUMN_ID + "))";
         db.execSQL(query);
+
+        // Vendor images
+        query = "CREATE TABLE " + VENDOR_IMAGES_DB_TABLE +
+                "(" + VENDOR_IMAGES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                VENDOR_IMAGES_COLUMN_VENDOR_ID  + " INTEGER," +
+                VENDOR_IMAGES_COLUMN_IMAGE + " TEXT," +
+                "FOREIGN KEY (" + VENDOR_IMAGES_COLUMN_VENDOR_ID + ") REFERENCES Vendors(" + VENDOR_COLUMN_ID + "))";
+        db.execSQL(query);
+
+
+
     }
-
-
-
-    // old
-//    @Override
-//    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        if(oldVersion >= newVersion)
-//            return;
-//        db.execSQL("DROP TABLE IF EXISTS " + USER_DB_TABLE);
-//        db.execSQL("DROP TABLE IF EXISTS " + VENDOR_DB_TABLE);
-//        db.execSQL("DROP TABLE IF EXISTS " + ORDER_DB_TABLE);
-//        db.execSQL("DROP TABLE IF EXISTS " + MENU_ITEM_DB_TABLE);
-//        db.execSQL("DROP TABLE IF EXISTS " + ORDER_ITEM_DB_TABLE);
-//        onCreate(db);
-//    }
-
 
 
     @Override
@@ -168,6 +164,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ORDER_DB_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + MENU_ITEM_DB_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + ORDER_ITEM_DB_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + VENDOR_IMAGES_DB_TABLE);
         onCreate(db);
     }
 
@@ -196,13 +193,57 @@ public class AppDatabase extends SQLiteOpenHelper {
 
         // add some vendor
         contentValues = new ContentValues();
-        contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Pizza Restaurant");
-        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "This pizza place uses local farm sourced ingredients to provide fresh pizza ");
+        contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Pizza Hut");
+        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "Our pizza uses local farm sourced ingredients to provide fresh pizza ");
         contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 98.8445777);
         contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, 23.9862672);
         contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (123) 456-7890");
         contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "pizza_vendor");
         db.insert(VENDOR_DB_TABLE, null, contentValues);
+
+        // add some vendor image
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 1);
+        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://www.bpmcdn.com/f/files/interiornews/import/2022-06/29317788_web1_220601-CPW-Tim-Hortons-privacy-watchdogs-privacy_1.jpg");
+        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
+        // add some vendor image
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 1);
+        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://www.indystar.com/gcdn/-mm-/2425a0470766b558967df12696ca47cade450c8d/c=149-99-2888-1647/local/-/media/2018/01/20/INGroup/Indianapolis/636520357268068995--us-images-Tim-Hortons-Exterior-2.jpg?width=2739&height=1548&fit=crop&format=pjpg&auto=webp");
+        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
+        // add some vendor image
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 1);
+        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://img.cdn4dd.com/cdn-cgi/image/fit=contain,width=1200,height=672,format=auto/https://doordash-static.s3.amazonaws.com/media/store/header/5b0a4b4c-6b6f-4578-9a8e-1c62896c990a.png");
+        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
+        // add some vendor image
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 2);
+        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://dynl.mktgcdn.com/p/hxJgH_gPUGuHQPqGidqaJNMl9pbQqLO7esOuNzfyw8o/496x344.png");
+        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
+//        // add some vendor image
+//        contentValues = new ContentValues();
+//        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 2);
+//        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "");
+//        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // add some order
         contentValues = new ContentValues();
@@ -276,6 +317,8 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(ORDER_ITEM_COLUMN_ITEM_PRICE, 7.49);
         contentValues.put(ORDER_ITEM_COLUMN_SUBTOTAL, 7.49);
         db.insert(ORDER_ITEM_DB_TABLE, null, contentValues);
+
+
     }
 
 
@@ -729,37 +772,62 @@ public class AppDatabase extends SQLiteOpenHelper {
 
 
 
+    /****************** USER TABLE ******************/
+
+//    public String getVendorImage(int vendorID){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//
+//    }
 
 
-    /*
-    * public List<MenuItem> getMenuItembyTag(string tag)
-    *
-    *
-    * */
+//    public List<ModelVendorImage> getVendorImages(int vendorID){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        List<ModelVendorImage> allImages = new ArrayList<>();
+//        String queryStatement = "SELECT * FROM " + VENDOR_IMAGES_DB_TABLE
+//                 + " WHERE " + VENDOR_IMAGES_COLUMN_VENDOR_ID + " = ?";
+//        Cursor cursor = db.rawQuery(queryStatement, null);
+//
+//        while (cursor.moveToNext()) {
+//            ModelVendorImage modelVendorImage = new ModelVendorImage();
+//            modelVendorImage.setId(cursor.getInt(0));
+//            modelVendorImage.setVendorID(cursor.getInt(1));
+//            modelVendorImage.setImage(cursor.getString(2));
+//
+//            allImages.add(modelVendorImage);  // Add the created object to the list
+//        }
+//
+//        cursor.close();  // Close the cursor to avoid memory leaks
+//        return allImages;
+//
+//    }
 
 
 
+    public List<ModelVendorImage> getVendorImages(int vendorID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelVendorImage> allImages = new ArrayList<>();
 
+        // Use placeholders (?) in the query and provide the actual values in the selectionArgs array
+        String queryStatement = "SELECT * FROM " + VENDOR_IMAGES_DB_TABLE +
+                " WHERE " + VENDOR_IMAGES_COLUMN_VENDOR_ID + " = ?";
 
+        // Pass the selection arguments (vendorID) as an array
+        String[] selectionArgs = { String.valueOf(vendorID) };
 
+        Cursor cursor = db.rawQuery(queryStatement, selectionArgs);
 
+        while (cursor.moveToNext()) {
+            ModelVendorImage modelVendorImage = new ModelVendorImage();
+            modelVendorImage.setId(cursor.getInt(0));
+            modelVendorImage.setVendorID(cursor.getInt(1));
+            modelVendorImage.setImage(cursor.getString(2));
+            allImages.add(modelVendorImage);
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        cursor.close();
+        return allImages;
+    }
 
 
 
