@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:text="Featured Restaurants:"
         android:textSize="19dp"
+        android:textStyle="bold"
         android:layout_marginTop="1dp"
         android:layout_marginStart="25dp"
         app:layout_constraintBottom_toBottomOf="parent"

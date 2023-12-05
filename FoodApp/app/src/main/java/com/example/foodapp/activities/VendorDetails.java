@@ -34,22 +34,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VendorDetails extends AppCompatActivity {
+    // on screen views and buttons
     ImageButton homeButton, searchButton, orderButton, accountButton;
-
-    int vendorId;
     TextView name, restaurantDescription;
     TabLayout tabLayout;
     ViewPager viewPager;
 
+    // current vendor's id
+    int vendorId;
 
+    // to display the vendor images in a slideshow
     private ImageView vendorImage;
     private List<ModelVendorImage> vendorImages;
     private int currentPosition = 0;
     private static final int SLIDESHOW_INTERVAL = 4000;
-
     private final Handler handler = new Handler();
 
-    // Define the runnable that will be executed to update the image
+    // Defines the runnable that will be executed to update the image
     private final Runnable updateImageRunnable = new Runnable() {
         @Override
         public void run() {
@@ -63,15 +64,17 @@ public class VendorDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_details);
 
-
+        // database initialization
         AppDatabase db = new AppDatabase(this);
+        // gets vendor and user id from intent
         Intent intent = getIntent();
         vendorId = intent.getIntExtra("vendorID", 0);
         int userID = intent.getIntExtra("userID", 0);
 
+        // vendor object based on the id
         ModelVendor modelVendor = db.getVendorFromId(vendorId);
 
-
+        // for debugging
         Log.d("Received in vendor page", "id ->" + userID);
 
         // buttons on screen
@@ -82,17 +85,17 @@ public class VendorDetails extends AppCompatActivity {
         // Use the ToolbarHandler to handle the image buttons
         ToolbarHandler.handleImageButtons(userID, this, homeButton, searchButton, orderButton, accountButton);
 
+        // displays vendor name
         name = findViewById(R.id.restaurantTitle);
         name.setText(modelVendor.getName().toString().trim());
 
-
+        // list of vendor images
         vendorImage = findViewById(R.id.displayImages);
-
         this.vendorImages = db.getVendorImages(vendorId);
 
 
 
-//        // Set up ViewPager
+        // Set up ViewPager for switching between the 5 tabs
         viewPager = findViewById(R.id.viewPager);
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), vendorId, userID);
         viewPager.setAdapter(pagerAdapter);
@@ -131,60 +134,6 @@ public class VendorDetails extends AppCompatActivity {
         handler.removeCallbacks(updateImageRunnable);
         super.onDestroy();
     }
-
-
-//    private void setupViewPager(ViewPager viewPager) {
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new FoodFragment(), "Food");
-//        adapter.addFragment(new DrinksFragment(), "Drinks");
-//        adapter.addFragment(new SearchFragment(), "Search");
-//        adapter.addFragment(new AboutFragment(), "About");
-//        adapter.addFragment(new LocationFragment(), "Location");
-//        viewPager.setAdapter(adapter);
-//    }
-
-
-
-//    // Adapter for the ViewPager
-//    static class ViewPagerAdapter extends FragmentPagerAdapter {
-//        private final List<Fragment> fragmentList = new ArrayList<>();
-//        private final List<String> fragmentTitleList = new ArrayList<>();
-//
-//        public ViewPagerAdapter(FragmentManager manager) {
-//            super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-//        }
-//
-//        @NonNull
-//        @Override
-//        public Fragment getItem(int position) {
-//            return fragmentList.get(position);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return fragmentList.size();
-//        }
-//
-//        public void addFragment(Fragment fragment, String title) {
-//            fragmentList.add(fragment);
-//            fragmentTitleList.add(title);
-//        }
-//
-//        @Nullable
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            return fragmentTitleList.get(position);
-//        }
-//    }
-//
-//
-//
-
-
-
-
-
-
 
 
 }

@@ -65,13 +65,13 @@ public class RegisterPage extends AppCompatActivity {
 
                 // adds new user to database if inputs are valid
                 if(!checkFN && !checkLN && !checkEM && !checkPW){
-                    Toast.makeText(getApplicationContext(), "Check", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Check", Toast.LENGTH_SHORT).show();
 
                     // sets a new user's default avatar
                     Resources res = getResources();
                     selectedImageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + res.getResourcePackageName(R.drawable.default_avatar) + '/' + res.getResourceTypeName(R.drawable.default_avatar) + '/' + res.getResourceEntryName(R.drawable.default_avatar));
 
-
+                    // creates a new user from the entered info and an image
                     ModelUser modelUser = new ModelUser(
                             firstName.getText().toString(),
                             lastName.getText().toString(),
@@ -85,7 +85,7 @@ public class RegisterPage extends AppCompatActivity {
                     // and returns to login page
                     Intent intent = new Intent(RegisterPage.this, LoginPage.class);
                     startActivity(intent);
-                    Toast.makeText(getApplicationContext(), "Successfully Registered", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Successfully Registered", Toast.LENGTH_SHORT).show();
                 }
 
                 // displays error message of each invalid input

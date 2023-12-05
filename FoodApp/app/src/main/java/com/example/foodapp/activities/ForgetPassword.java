@@ -15,17 +15,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
 import com.example.foodapp.models.ModelUser;
-
+/* This page allows a user to rest their password to a new one incase they forgot their old one */
 public class ForgetPassword extends AppCompatActivity {
+    // on screen views, buttons and inputs
     EditText email, password, newPassword;
     TextView errorMessage;
     ImageButton showPassword;
     boolean isPasswordVisible = false;
-
     Button newPassButton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pass);
+        // those same on screen views
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         newPassword = findViewById(R.id.newpass);
@@ -59,53 +60,49 @@ public class ForgetPassword extends AppCompatActivity {
 
 
 
-
+        // when the user submits their new password
         newPassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AppDatabase db = new AppDatabase(v.getContext());
-//                int id = db.getUserIdFromEmail(email.getText().toString());
-
-//                if (email.getText().toString() == null || newPassword.getText().toString() == null){
-//                    Toast.makeText(getApplicationContext(), "Please enter your email", Toast.LENGTH_SHORT).show();
-//                }
+                // to display the specified error message on screen
                 errorMessage.setText("");
 
-
-
+                // database reference
                 AppDatabase db = new AppDatabase(v.getContext());
-                    int id = db.getUserIdFromEmail(email.getText().toString());
+                // attempts to find the suer based on tier email
+                int id = db.getUserIdFromEmail(email.getText().toString());
 
-                    if(id == -1){
-//                        Toast.makeText(getApplicationContext(), "Sorry. That email does not exist for an account", Toast.LENGTH_SHORT).show();
-                        errorMessage.setText("Sorry. That email does not exist for an account");
-                    }
-                    else if(newPassword.getText().toString().isEmpty()){
-//                        Toast.makeText(getApplicationContext(), "Please enter your new password", Toast.LENGTH_SHORT).show();
-                        errorMessage.setText("Please enter your new password");
+                // displays error message if the user email is not registered
+                if(id == -1){
+                    errorMessage.setText("Sorry. That email does not exist for an account");
+                }
 
-                    }
-
-                    else{
-                        ModelUser oldUser = db.getUser(id);
-
-                        ModelUser newUser = new ModelUser(
-                                oldUser.getId(),
-                                oldUser.getFirstName(),
-                                oldUser.getLastName(),
-                                oldUser.getEmail(),
-                                newPassword.getText().toString(),
-                                oldUser.getUserImage()
-                        );
-
-                        int rowsAffected = db.updateUser(id, newUser);
-                        Intent intent = new Intent(ForgetPassword.this, LoginPage.class);
-                        startActivity(intent);
-                        finish();
-                    }
+                // displays error message if the new password is empty
+                else if(newPassword.getText().toString().isEmpty()){
+                    errorMessage.setText("Please enter your new password");
 
                 }
 
+                else{
+                    // creates a model user to update the old one with the new password
+                    ModelUser oldUser = db.getUser(id);
+                    ModelUser newUser = new ModelUser(
+                            oldUser.getId(),
+                            oldUser.getFirstName(),
+                            oldUser.getLastName(),
+                            oldUser.getEmail(),
+                            newPassword.getText().toString(),
+                            oldUser.getUserImage()
+                    );
+                    // updates the database with the updated user values(password)
+                    int rowsAffected = db.updateUser(id, newUser);
+
+                    // returns to the login page
+                    Intent intent = new Intent(ForgetPassword.this, LoginPage.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
         });
     }
 }

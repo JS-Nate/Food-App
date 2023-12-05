@@ -24,9 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPage extends AppCompatActivity {
+    // on screen buttons
     ImageButton homeButton, searchButton, orderButton, accountButton;
+
+    // vendor list and list adapter
     List<ModelVendor> modelVendorList;
     HomeVerAdapter homeVerAdapter;
+    // user id
     int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +49,14 @@ public class SearchPage extends AppCompatActivity {
         // Use the ToolbarHandler to handle the image buttons
         ToolbarHandler.handleImageButtonsFromSearch(id, this, homeButton, searchButton, orderButton, accountButton);
 
-
+        // uses an edit text for the search bar
         EditText searchBar = findViewById(R.id.searchBar);
+        // when the user enters text in the edit text
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+            // filters the listed vendors based on the entered text
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filter(s.toString());
@@ -63,16 +69,20 @@ public class SearchPage extends AppCompatActivity {
 
 
 
-
+        // vendor list adapter into the recycler view
+        // database initialization
         AppDatabase db = new AppDatabase(SearchPage.this);
         RecyclerView searchRecyclerView = findViewById(R.id.searchRecyclerView);
+        // gets a list of vendors form the database
         modelVendorList = db.getVendors();
+        // displays the list on screen with the layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         layoutManager.setReverseLayout(false);
         layoutManager.setStackFromEnd(false);
         searchRecyclerView.setLayoutManager(layoutManager);
         searchRecyclerView.setHasFixedSize(true);
         searchRecyclerView.setNestedScrollingEnabled(false);
+        // lists the vendors using the adapter class
         homeVerAdapter = new HomeVerAdapter(this, modelVendorList, id);
         searchRecyclerView.setAdapter(homeVerAdapter);
 
@@ -80,6 +90,7 @@ public class SearchPage extends AppCompatActivity {
     }
 
     // added for searching by filtering based on the user search
+    // returns a filtered list based on the name entered
     private void filter(String query) {
         List<ModelVendor> filteredList = new ArrayList<>();
         for (ModelVendor modelVendor : modelVendorList) {

@@ -1,13 +1,11 @@
 package com.example.foodapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,20 +13,20 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.R;
-import com.example.foodapp.activities.ItemDetails;
 import com.example.foodapp.fragments.ItemBottomSheetFragment;
 import com.example.foodapp.models.ModelMenuItem;
-import com.example.foodapp.models.ModelVendor;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/* Adapter for listing food and drink items in the vendor fod/drink tab */
 public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.ViewHolder> {
 
-
+    // list layout and context
     private LayoutInflater inflater;
     Context context;
     private List<ModelMenuItem> modelMenuItemList;
+    // user ID
     int userID;
 
 
@@ -54,12 +52,14 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull VendorFoodAdapter.ViewHolder holder, int position) {
+        // the current menu item object
         ModelMenuItem modelMenuItem = modelMenuItemList.get(position);
+        // display the item name, image and price in the list
         holder.itemName.setText(modelMenuItem.getItemName());
         holder.itemPrice.setText("$" + String.valueOf(modelMenuItem.getItemPrice())); // Assuming ItemPrice is int, update accordingly
         String imageString = modelMenuItem.getItemImage();
 
-        // trying to load image via Picasso
+        // trying to load web-link based image via Picasso implementation
         Picasso.get().load(imageString).into((holder.itemImage));
     }
 
@@ -68,45 +68,31 @@ public class VendorFoodAdapter extends RecyclerView.Adapter<VendorFoodAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        // item name, price and image view
         TextView itemName, itemPrice;
         ImageView itemImage;
         CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            // item name, price and image view
             itemName = itemView.findViewById(R.id.itemName);
             itemPrice = itemView.findViewById(R.id.itemPrice);
             itemImage = itemView.findViewById(R.id.itemImage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
+                // clicking on an item will bring up that item's detail menu to change the size and amount to add to order
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Clicked on " + itemName.getText().toString() + " user id " + userID, Toast.LENGTH_SHORT).show();
-
-//                    Intent intent = new Intent(v.getContext(), ItemDetails.class);
-//
-//                    // Pass any necessary data to the detail activity using intent extras
-//                    intent.putExtra("item_id", modelMenuItemList.get(getAdapterPosition()).getId());
-//                    intent.putExtra("userID", userID);
-//                    // Add other data as needed
-//
-//                    // Start the detail activity
-//                    v.getContext().startActivity(intent);
-
                     showItemBottomSheet(v.getContext(), userID, modelMenuItemList.get(getAdapterPosition()).getId());
-
-
-
                 }
             });
-
-
         }
     }
 
 
 
 
-
+    // for bringing up that item's detail menu
     private static void showItemBottomSheet(Context context, int userID, int itemID) {
         ItemBottomSheetFragment itemBottomSheetFragment = new ItemBottomSheetFragment(userID, itemID);
         itemBottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), itemBottomSheetFragment.getTag());

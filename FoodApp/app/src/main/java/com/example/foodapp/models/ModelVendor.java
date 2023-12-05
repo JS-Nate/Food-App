@@ -8,8 +8,8 @@ public class ModelVendor {
     public double longitude;
     public double latitude;
     public String contact;
-    public String vendorVideo;
 
+    public String vendorVideo;
 
     public ModelVendor(){}
 
@@ -42,10 +42,6 @@ public class ModelVendor {
 
     public String getName() {
         return name;
-    }
-
-    public String getVendorVideo() {
-        return vendorVideo;
     }
 
     public void setName(String name) {
@@ -83,4 +79,13 @@ public class ModelVendor {
     public void setContact(String contact) {
         this.contact = contact;
     }
+
+    public void setVendorVideo(String vendorVideo) {
+        this.vendorVideo = vendorVideo;
+    }
+
+    public String getVendorVideo() {
+        return vendorVideo;
+    }
+
 }

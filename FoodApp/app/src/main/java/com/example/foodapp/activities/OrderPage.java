@@ -27,10 +27,20 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnDeleteItemClickListener {
+
+    // toolbar buttons
     ImageButton homeButton, searchButton, orderButton, accountButton;
+
+    // user id
     int id;
+
+    //database
     AppDatabase db;
+
+    // total order price
     Double totalAmount;
+
+    //order and order list to display
     ModelOrder order;
     List<ModelOrderItem> orderItems;
     RecyclerView orderTable;
@@ -39,6 +49,7 @@ public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
 
+        // gets the user id from the previous intent
         Intent intent = getIntent();
         id = intent.getIntExtra("userId", 0);
         Log.d("Received in search page", "id ->" + id);
@@ -56,16 +67,12 @@ public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnD
             orderItems = db.getOrderItems(order.getId());
 
             for (ModelOrderItem item : orderItems) {
-                ModelMenuItem menuItem = db.getMenuItem(item.getItemId()); // Your method to get menu item
+                ModelMenuItem menuItem = db.getMenuItem(item.getItemId()); // method to get menu item
                 item.setItemName(menuItem.getItemName()); // Set the name in ModelOrderItem
                 totalAmount = totalAmount + item.getSubtotal();
             }
 
-//            // add the list of items
-//            OrderItemAdapter adapter = new OrderItemAdapter(orderItems);
-//            orderTable.setAdapter(adapter);
 
-            //mine
             // add the list of items
             OrderItemAdapter adapter = new OrderItemAdapter(orderItems, this);
             orderTable.setAdapter(adapter);
@@ -78,7 +85,6 @@ public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnD
             // Assuming totalAmount is a Number (like Integer, Double, etc.)
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
             String formattedTotal = currencyFormat.format(totalAmount);
-
             totalText.setText(formattedTotal);
         }
 
@@ -91,12 +97,15 @@ public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnD
         ToolbarHandler.handleImageButtonsFromOrder(id, this, homeButton, searchButton, orderButton, accountButton);
 
         Button submitOrder = findViewById(R.id.submitOrder);
+
+        // submitting an order
         submitOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (order == null) {
                     return;
                 }
+                // proceeds to the payment information page
                 Intent intent = new Intent(OrderPage.this, PaymentInformation.class);
                 intent.putExtra("userId", id);
                 intent.putExtra("orderId", order.getId());
@@ -107,8 +116,6 @@ public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnD
     }
 
 
-
-    //mine
     // Implement the onDeleteItemClick method
     @Override
     public void onDeleteItemClick(int position) {
@@ -124,6 +131,7 @@ public class OrderPage extends AppCompatActivity implements OrderItemAdapter.OnD
         }
     }
 
+    // recalculates the total order price after item deletion
     private void recalculateTotalAmount() {
         totalAmount = 0.0;
         for (ModelOrderItem item : orderItems) {

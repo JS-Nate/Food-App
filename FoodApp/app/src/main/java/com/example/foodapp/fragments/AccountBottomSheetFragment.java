@@ -60,18 +60,13 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
         changeIcon = view.findViewById(R.id.changeIcon);
         changeInfo = view.findViewById(R.id.changeInfo);
         logout = view.findViewById(R.id.logout);
-        other = view.findViewById(R.id.other);
 
-        // Retrieve information or set it based on your requirements
+        // displays the current user's information retrieved from the database
         userName.setText(thisUser.getFirstName() + " " + thisUser.getLastName());
         userEmail.setText(thisUser.getEmail());
-
-
         userImage.setImageURI(Uri.parse(thisUser.getUserImage())); // Set image URI
         selectedImageUri = Uri.parse(thisUser.getUserImage());
 
-
-//        other.setText(selectedImageUri.toString()); // display the string that the image is being stored as
 
 
 
@@ -99,9 +94,8 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedImageUri);
                 startCamera.launch(cameraIntent);
-                other.setText(selectedImageUri.toString()); // display the string that the image is being stored as
 
-                // update database with it
+                // update database with the user's updated profile picture
                 ModelUser updatingUser = new ModelUser(
                         thisUser.getId(),
                         thisUser.getFirstName(),
@@ -126,6 +120,7 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
                 startActivity(intent);
             }
         });
+
 
 
 

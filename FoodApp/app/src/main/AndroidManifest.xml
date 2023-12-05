@@ -26,19 +26,10 @@
             android:name=".activities.PaymentInformation"
             android:exported="false" />
         <activity
-            android:name=".activities.OrderHistory"
-            android:exported="false" />
-        <activity
             android:name=".activities.ForgetPassword"
             android:exported="false" />
         <activity
-            android:name=".activities.ItemDetails"
-            android:exported="false" />
-        <activity
             android:name=".activities.OrderPage"
-            android:exported="false" />
-        <activity
-            android:name=".activities.WelcomePage"
             android:exported="false" />
         <activity
             android:name=".activities.SearchPage"

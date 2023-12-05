@@ -65,6 +65,7 @@ public class LoginPage extends AppCompatActivity {
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // changes the show/hide password image displayed based on the password visibility
                 if(isPasswordVisible){
                     password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     showPassword.setImageResource(R.drawable.visibility_off_24px);
@@ -78,6 +79,7 @@ public class LoginPage extends AppCompatActivity {
 
 
 
+        // if the user forgets their password to go to a new activity to reset it
         forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +103,6 @@ public class LoginPage extends AppCompatActivity {
                     int userId = db.getUserId(email.getText().toString(), password.getText().toString());
 
                     if (userId != -1) {
-                        //Toast.makeText(getApplicationContext(), "user exists in database", Toast.LENGTH_SHORT).show();
                         // Intent to enter the Home Page
                         Intent intent = new Intent(LoginPage.this, HomePage.class);
                         intent.putExtra("userId", userId);

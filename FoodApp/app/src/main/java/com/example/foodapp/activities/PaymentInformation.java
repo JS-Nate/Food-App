@@ -18,10 +18,15 @@ import com.example.foodapp.ToolbarHandler;
 
 
 public class PaymentInformation extends AppCompatActivity {
+
+    // toolbar buttons
     ImageButton homeButton, searchButton, orderButton, accountButton;
+
+    // user and order id
     int userID;
     int orderID;
 
+    // database
     AppDatabase db;
 
     @Override
@@ -29,12 +34,13 @@ public class PaymentInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_information);
 
+        // database initialization
         db = new AppDatabase(this);
 
+        // gets the user and order id from the intent
         Intent intent = getIntent();
         userID = intent.getIntExtra("userId", 0);
         orderID = intent.getIntExtra("orderId", 0);
-        Log.d("Received in search page", "id ->" + userID);
 
         // buttons on screen
         homeButton = findViewById(R.id.button1);
@@ -45,6 +51,9 @@ public class PaymentInformation extends AppCompatActivity {
         ToolbarHandler.handleImageButtons(userID, this, homeButton, searchButton, orderButton, accountButton);
 
         Button submitPayment = findViewById(R.id.submitPayment);
+
+        // submits the order and changes its status to submitted
+        // then returns to the home page
         submitPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

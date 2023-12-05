@@ -9,13 +9,15 @@ import com.example.foodapp.fragments.SearchFragment;
 import com.example.foodapp.fragments.AboutFragment;
 import com.example.foodapp.fragments.LocationFragment;
 
-
+/* Adapter class for the 5 tab pages in the vendor details page */
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
+    // the userid and the id of the vendor it's displaying
     int vendorID;
     int userID;
 
 
+    // constructor getting the userid and the id of the vendor it's displaying
     public MyPagerAdapter(FragmentManager fm, int id, int userID) {
 
         super(fm);
@@ -28,15 +30,15 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         // Return the fragment for the given position
         switch (position) {
             case 0:
-                return new FoodFragment(vendorID, userID); // Replace with your FoodFragment
+                return new FoodFragment(vendorID, userID); // Food fragment page
             case 1:
-                return new DrinksFragment(vendorID, userID); // Replace with your DrinksFragment
+                return new DrinksFragment(vendorID, userID); // DrinksFragment page
             case 2:
-                return new SearchFragment(vendorID, userID); // Replace with your SearchFragment
+                return new SearchFragment(vendorID, userID); // SearchFragment page
             case 3:
-                return new AboutFragment(vendorID); // Replace with your AboutFragment
+                return new AboutFragment(vendorID); // AboutFragment page
             case 4:
-                return new LocationFragment(vendorID); // Replace with your LocationFragment
+                return new LocationFragment(vendorID); // LocationFragment page
             default:
                 return null;
         }
@@ -45,7 +47,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Return the total number of tabs
-        return 5; // Adjust this based on the number of tabs you have
+        return 5;
     }
 
     @Override

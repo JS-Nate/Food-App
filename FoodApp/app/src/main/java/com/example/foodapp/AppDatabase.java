@@ -32,15 +32,6 @@ public class AppDatabase extends SQLiteOpenHelper {
     private static String USER_COLUMN_LAST_NAME = "last_name";
     private static String USER_COLUMN_USER_IMAGE = "user_image";
 
-    // ORDER TABLE
-    private static String ORDER_DB_TABLE = "orders";
-    private static String ORDER_COLUMN_ID = "order_id";
-    private static String ORDER_COLUMN_USER_ID = "user_id";
-    private static String ORDER_COLUMN_VENDOR_ID = "vendor_id";
-    private static String ORDER_COLUMN_ORDER_DATE = "order_date";
-    private static String ORDER_COLUMN_ORDER_STATUS = "order_status";
-    private static String ORDER_COLUMN_TOTAL_AMOUNT = "total_amount";
-
     // VENDOR TABLE
     private static String VENDOR_DB_TABLE = "vendors";
     private static String VENDOR_COLUMN_ID = "vendor_id";
@@ -61,6 +52,15 @@ public class AppDatabase extends SQLiteOpenHelper {
     private static String MENU_ITEM_COLUMN_CATEGORY = "item_category";
     private static String MENU_ITEM_COLUMN_IMAGE = "item_image";
     private static String MENU_ITEM_COLUMN_PRICE = "price";
+
+    // ORDER TABLE
+    private static String ORDER_DB_TABLE = "orders";
+    private static String ORDER_COLUMN_ID = "order_id";
+    private static String ORDER_COLUMN_USER_ID = "user_id";
+    private static String ORDER_COLUMN_VENDOR_ID = "vendor_id";
+    private static String ORDER_COLUMN_ORDER_DATE = "order_date";
+    private static String ORDER_COLUMN_ORDER_STATUS = "order_status";
+    private static String ORDER_COLUMN_TOTAL_AMOUNT = "total_amount";
 
     // ORDER ITEM TABLE
     private static String ORDER_ITEM_DB_TABLE = "order_items";
@@ -221,6 +221,15 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "a_w_vendor");
         db.insert(VENDOR_DB_TABLE, null, contentValues);
 
+        // add some vendor
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_COLUMN_VENDOR_NAME, "Wendy's");
+        contentValues.put(VENDOR_COLUMN_VENDOR_DESCRIPTION, "We have burgers");
+        contentValues.put(VENDOR_COLUMN_VENDOR_LONGITUDE, 38.2388516);
+        contentValues.put(VENDOR_COLUMN_VENDOR_LATITUDE, -76.523293);
+        contentValues.put(VENDOR_COLUMN_VENDOR_CONTACT, "Phone: (098) 765-4321");
+        contentValues.put(VENDOR_COLUMN_VENDOR_VIDEO, "a_w_vendor");
+        db.insert(VENDOR_DB_TABLE, null, contentValues);
 
 
 
@@ -261,24 +270,17 @@ public class AppDatabase extends SQLiteOpenHelper {
         db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
 
 
+                // add some vendor image
+        contentValues = new ContentValues();
+        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 5);
+        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "https://www.usatoday.com/gcdn/media/USATODAY/WiresImages/2012/10/11/820fbb8bab63a41c1d0f6a70670052a9-16_9.jpg?width=1200&disable=upscale&format=pjpg&auto=webp");
+        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
+
 //        // add some vendor image
 //        contentValues = new ContentValues();
 //        contentValues.put(VENDOR_IMAGES_COLUMN_VENDOR_ID, 2);
 //        contentValues.put(VENDOR_IMAGES_COLUMN_IMAGE, "");
 //        db.insert(VENDOR_IMAGES_DB_TABLE, null, contentValues);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         // add some order
@@ -294,7 +296,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Avocado Toast");
-        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "For all you hippies");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "For all you youngsters");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 1);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://simplyfreshfoodie.com/wp-content/uploads/2021/08/DSC_0546.jpg");
@@ -535,7 +537,6 @@ public class AppDatabase extends SQLiteOpenHelper {
         return menuItems;
     }
 
-
     public ModelMenuItem getMenuItem(int ID){
         SQLiteDatabase db = this.getReadableDatabase();
         String[] query = new String[]{
@@ -560,6 +561,7 @@ public class AppDatabase extends SQLiteOpenHelper {
                     cursor.getString(6),
                     cursor.getString(7)
             );
+
         }
         else {
             return null;
@@ -602,8 +604,6 @@ public class AppDatabase extends SQLiteOpenHelper {
         return menuItems;
     }
 
-
-
     public List<ModelMenuItem> getMenuItemsByVendorAndCategory(int vendorId, String category) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelMenuItem> menuItems = new ArrayList<>();
@@ -645,8 +645,6 @@ public class AppDatabase extends SQLiteOpenHelper {
 
 
     /****************** ORDER ITEM TABLE ******************/
-
-
     public List<ModelOrderItem> getOrderItems(int orderID) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelOrderItem> orderItems = new ArrayList<>();
@@ -885,8 +883,6 @@ public class AppDatabase extends SQLiteOpenHelper {
 
 
 
-
-
     // to get info of a specific user based on its ID
     public ModelUser getUser(int ID) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -920,6 +916,51 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
 
+    // gets a list of order completed by the specified user
+    public List<ModelOrder> getPastOrders(int userID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelOrder> modelOrderList = new ArrayList<>();
+        String queryStatement = "SELECT * FROM " + ORDER_DB_TABLE;
+        Cursor cursor = db.rawQuery(queryStatement, null);
+        while (cursor.moveToNext()) {
+            ModelOrder modelOrder = new ModelOrder();
+            modelOrder.setId(cursor.getInt(0));
+            modelOrder.setUserID(cursor.getInt(1));
+            modelOrder.setVendorID(cursor.getInt(2));
+            modelOrder.setDate(cursor.getString(3));
+            modelOrder.setStatus(cursor.getString(4));
+            modelOrder.setTotalAmount(cursor.getDouble(5));
+
+            modelOrderList.add(modelOrder);  // Add the created object to the list
+        }
+        cursor.close();  // Close the cursor to avoid memory leaks
+        return modelOrderList;
+    }
+
+
+    // gets a list of ordered items belonging to a specified order
+    public List<ModelOrderItem> getPastOrderItems(int orderID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<ModelOrderItem> modelOrderItemList = new ArrayList<>();
+        String queryStatement = "SELECT * FROM " + ORDER_ITEM_DB_TABLE +
+                " WHERE " + ORDER_ITEM_COLUMN_ORDER_ID + " = ?";
+        Cursor cursor = db.rawQuery(queryStatement, null);
+        while (cursor.moveToNext()) {
+            ModelOrderItem modelOrderItem = new ModelOrderItem();
+            modelOrderItem.setId(cursor.getInt(0));
+            modelOrderItem.setOrderId(cursor.getInt(1));
+            modelOrderItem.setItemId(cursor.getInt(2));
+            modelOrderItem.setQuantity(cursor.getInt(3));
+            modelOrderItem.setItemPrice(cursor.getDouble(4));
+            modelOrderItem.setSubtotal(cursor.getDouble(5));
+
+            modelOrderItemList.add(modelOrderItem);  // Add the created object to the list
+        }
+        cursor.close();  // Close the cursor to avoid memory leaks
+        return modelOrderItemList;
+    }
+
+
 
 
     /****************** VENDOR TABLE ******************/
@@ -946,28 +987,28 @@ public class AppDatabase extends SQLiteOpenHelper {
         return allVendor;
     }
 
-
-    public ModelVendor getVendorFromId(int ID){
+    // gets the model vendor object based on their id
+    public ModelVendor getVendorFromId(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] query = new String[]{VENDOR_COLUMN_ID, VENDOR_COLUMN_VENDOR_NAME, VENDOR_COLUMN_VENDOR_DESCRIPTION, VENDOR_COLUMN_VENDOR_LONGITUDE, VENDOR_COLUMN_VENDOR_LATITUDE, VENDOR_COLUMN_VENDOR_DESCRIPTION, VENDOR_COLUMN_VENDOR_VIDEO};
-        Cursor cursor = db.query(VENDOR_DB_TABLE, query, VENDOR_COLUMN_ID + "=?", new String[]{String.valueOf(ID)}, null, null, null, null);
+        String queryStatement = "SELECT * FROM " + VENDOR_DB_TABLE + " WHERE " + VENDOR_COLUMN_ID + " = ?";
+        Cursor cursor = db.rawQuery(queryStatement, new String[]{String.valueOf(id)});
 
-        if (cursor != null && cursor.moveToFirst()){
-            return new ModelVendor(
-                    Integer.parseInt(cursor.getString(0)),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getDouble(3),
-                    cursor.getDouble(4),
-                    cursor.getString(5),
-                    cursor.getString(6)
-            );
-        }
-        else{
+        if (cursor.moveToFirst()) {
+            ModelVendor modelVendor = new ModelVendor();
+            modelVendor.setId(cursor.getInt(cursor.getColumnIndex(VENDOR_COLUMN_ID)));
+            modelVendor.setName(cursor.getString(cursor.getColumnIndex(VENDOR_COLUMN_VENDOR_NAME)));
+            modelVendor.setDescription(cursor.getString(cursor.getColumnIndex(VENDOR_COLUMN_VENDOR_DESCRIPTION)));
+            modelVendor.setLongitude(cursor.getDouble(cursor.getColumnIndex(VENDOR_COLUMN_VENDOR_LONGITUDE)));
+            modelVendor.setLatitude(cursor.getDouble(cursor.getColumnIndex(VENDOR_COLUMN_VENDOR_LATITUDE)));
+            modelVendor.setContact(cursor.getString(cursor.getColumnIndex(VENDOR_COLUMN_VENDOR_CONTACT)));
+            modelVendor.setVendorVideo(cursor.getString(cursor.getColumnIndex(VENDOR_COLUMN_VENDOR_VIDEO)));
+            return modelVendor;
+        } else {
             return null;
         }
     }
 
+    // gets the vendor's name by their id
     public String getVendorName(int ID){
         SQLiteDatabase db = this.getReadableDatabase();
         String vendorName = null;
@@ -991,38 +1032,9 @@ public class AppDatabase extends SQLiteOpenHelper {
 
 
 
-    /****************** USER TABLE ******************/
+    /****************** IMAGES TABLE ******************/
 
-//    public String getVendorImage(int vendorID){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//
-//    }
-
-
-//    public List<ModelVendorImage> getVendorImages(int vendorID){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        List<ModelVendorImage> allImages = new ArrayList<>();
-//        String queryStatement = "SELECT * FROM " + VENDOR_IMAGES_DB_TABLE
-//                 + " WHERE " + VENDOR_IMAGES_COLUMN_VENDOR_ID + " = ?";
-//        Cursor cursor = db.rawQuery(queryStatement, null);
-//
-//        while (cursor.moveToNext()) {
-//            ModelVendorImage modelVendorImage = new ModelVendorImage();
-//            modelVendorImage.setId(cursor.getInt(0));
-//            modelVendorImage.setVendorID(cursor.getInt(1));
-//            modelVendorImage.setImage(cursor.getString(2));
-//
-//            allImages.add(modelVendorImage);  // Add the created object to the list
-//        }
-//
-//        cursor.close();  // Close the cursor to avoid memory leaks
-//        return allImages;
-//
-//    }
-
-
-
+    // gets a list of images belonging to a certain vendor by their id
     public List<ModelVendorImage> getVendorImages(int vendorID) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelVendorImage> allImages = new ArrayList<>();

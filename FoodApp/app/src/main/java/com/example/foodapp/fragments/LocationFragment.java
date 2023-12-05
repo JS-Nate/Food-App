@@ -70,18 +70,9 @@ public class LocationFragment extends Fragment {
                 .into(staticMapImageView);
 
         String contact = "";
-        if(vendorId == 1){
-            contact = "Phone: (905) 436-8080";
-        }
-        else if(vendorId == 2){
-            contact = "Phone: (123) 456-7890";
-        }
-        else if(vendorId == 3){
-            contact = "Phone: (123) 456-7890";
-        }
-        else if(vendorId == 4){
-            contact = "Phone: (098) 765-4321";
-        }
+        contact = modelVendor.getContact();
+        Log.d("Contact", "Contact: " + contact);
+
         phoneNumber.setText(contact);
 
 

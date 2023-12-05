@@ -128,29 +128,15 @@
             android:id="@+id/changeInfo"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/app_beige"
             android:text="Change Password"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintHorizontal_bias="0.936"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.571" />
-
-        <TextView
-            android:id="@+id/other"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.814" />
+            app:layout_constraintVertical_bias="0.717" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

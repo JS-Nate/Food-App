@@ -103,6 +103,7 @@ public class HomePage extends AppCompatActivity {
         // Use the ToolbarHandler to handle the image buttons
         ToolbarHandler.handleImageButtonsFromHome(userID, this, homeButton, searchButton, orderButton, accountButton);
 
+        // welcome message with the user's name
         welcomeMessage = findViewById(R.id.welcomeMessage);
         welcomeMessage.setText("Hi " + thisUser.getFirstName());
 
@@ -110,88 +111,42 @@ public class HomePage extends AppCompatActivity {
 
 
 
-        // initializes the sidebar for viewing account info and searching
-//        drawerLayout = findViewById(R.id.drawerLayout);
-//        accountView = findViewById(R.id.accountView);
-//        searchbarView = findViewById(R.id.searchbarView);
-
-        // the 3 textViews displaying account information in the account view sidebar
-//        Menu navMenu = accountView.getMenu();
-//        MenuItem displayFNAME = navMenu.findItem(R.id.displayFNAME);
-//        MenuItem displayLNAME = navMenu.findItem(R.id.displayLNAME);
-//        MenuItem displayEMAIL = navMenu.findItem(R.id.displayEMAIL);
-
-
-
-//        // sets the account view display the current user's account info
-//        displayFNAME.setTitle("First Name: " + modelUser.getFirstName());
-//        displayLNAME.setTitle("Last Name: " + modelUser.getLastName());
-//        displayEMAIL.setTitle(modelUser.getEmail());
-
-
-
-//        welcomeMessage.setText("Welcome Back, " + modelUser.getFirstName());
-
-
-
-
-
-
-
-
-        // the first/horizontal one
+        // the horizontal recyclerview listing featured menu items
         recyclerView1 = findViewById(R.id.home_hor_rec);
+        // gets list of featured menu item from database
         modelMenuItemList = db.getFeaturedItems();
+        // uses layout manager to display list in the recyclerview
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         layoutManager1.setReverseLayout(true);
         layoutManager1.setStackFromEnd(true);
         recyclerView1.setLayoutManager(layoutManager1);
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setNestedScrollingEnabled(false);
+        // lists them using its adapter class
         homeHorAdapter = new HomeHorAdapter(this, modelMenuItemList, userID);
         recyclerView1.setAdapter(homeHorAdapter);
 
 
-        // the second/vertical one
+        // the vertical recyclerview listing vendors
         recyclerView2 = findViewById(R.id.home_ver_rec);
         modelVendorList = db.getVendors();
+        // uses layout manager to display list in the recyclerview
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         layoutManager2.setReverseLayout(false);
         layoutManager2.setStackFromEnd(false);
         recyclerView2.setLayoutManager(layoutManager2);
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setNestedScrollingEnabled(false);
+        // lists them using its adapter class
         homeVerAdapter = new HomeVerAdapter(this, modelVendorList, userID);
         recyclerView2.setAdapter(homeVerAdapter);
 
 
-
-
-
-
-        // opens the account view sidebar on the right to display user's account info
-//        accountButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Open the sidebar
-//                drawerLayout.openDrawer(accountView);
-//            }
-//        });
-
-//        // opens the search view sidebar on the left to display the searchbar
-//        searchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Open the sidebar
-//                drawerLayout.openDrawer(searchbarView);
-//            }
-//        });
-
-
-
-
     }
 
+    // in-app tutorial on the main buttons for first time users
+
+    // home button tutorial
     private void showHomeButtonTapTarget() {
         TapTargetView.showFor(this,
                 TapTarget.forView(homeButton, "This is the Home Button", "Experience seamless navigation to the app's main page with just a click!")
@@ -220,6 +175,7 @@ public class HomePage extends AppCompatActivity {
                 });
     }
 
+    // featured items list tutorial
     private void showFeaturedItemsTapTarget() {
         TapTargetView.showFor(this,
                 TapTarget.forView(recyclerView1, "See Featured Items", "")
@@ -248,6 +204,7 @@ public class HomePage extends AppCompatActivity {
                 });
     }
 
+    // search button tutorial
     private void showSearchButtonTapTarget() {
         TapTargetView.showFor(this,
                 TapTarget.forView(searchButton, "Search for Restaurants", "Discover diverse restaurants by simply tapping this button.")
@@ -276,6 +233,7 @@ public class HomePage extends AppCompatActivity {
                 });
     }
 
+    // order button tutorial
     private void showOrderButtonTapTarget() {
         TapTargetView.showFor(this,
                 TapTarget.forView(orderButton, "View Orders", "Tap the bag icon to explore the current contents of your shopping bag!")
@@ -304,6 +262,7 @@ public class HomePage extends AppCompatActivity {
                 });
     }
 
+    // account button tutorial
     private void showAccountButtonTapTarget() {
         TapTargetView.showFor(this,
                 TapTarget.forView(accountButton, "User Profile", "Your profile information is right at your fingertips—explore it here!")
