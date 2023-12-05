@@ -23,7 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.example.foodapp.AppDatabase;
 import com.example.foodapp.R;
-import com.example.foodapp.activities.ChangeInfo;
+import com.example.foodapp.activities.ForgetPassword;
 import com.example.foodapp.activities.LoginPage;
 import com.example.foodapp.models.ModelUser;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -118,7 +118,7 @@ public class AccountBottomSheetFragment extends BottomSheetDialogFragment {
         changeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ChangeInfo.class);
+                Intent intent = new Intent(v.getContext(), ForgetPassword.class);
                 intent.putExtra("userID", userID);
                 startActivity(intent);
             }

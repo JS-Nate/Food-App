@@ -17,9 +17,6 @@
         android:theme="@style/Theme.FoodApp"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ChangeInfo"
-            android:exported="false" />
-        <activity
             android:name=".fragments.ItemBottomSheetFragment"
             android:exported="false" />
         <activity
