@@ -1,5 +1,5 @@
 package com.example.foodapp.models;
-
+// model class for the vendor for all its properties
 public class ModelVendor {
     public Integer id;
 
@@ -8,11 +8,14 @@ public class ModelVendor {
     public double longitude;
     public double latitude;
     public String contact;
-
     public String vendorVideo;
 
+
+
+    // Required empty public constructor
     public ModelVendor(){}
 
+    // class initialization of creating and storing vendor information, with and without an id
     public ModelVendor(String name, String description, double longitude, double latitude, String contact, String vendorVideo){
         this.name = name;
         this.description = description;
@@ -32,6 +35,7 @@ public class ModelVendor {
         this.vendorVideo = vendorVideo;
     }
 
+    // getters and setters for each part of the stored vendor's info
     public Integer getId() {
         return id;
     }

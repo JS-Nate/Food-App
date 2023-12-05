@@ -1,5 +1,7 @@
 package com.example.foodapp.models;
 
+// model class for the menu item for all its properties
+
 public class ModelMenuItem {
     int id;
     int vendorID;
@@ -10,8 +12,10 @@ public class ModelMenuItem {
     String itemImage;
     String itemPrice;
 
+    // Required empty public constructor
     public ModelMenuItem(){}
 
+    // constructor for a menu item without specifying the id
     public ModelMenuItem(int vendorID, String itemName, String itemFeatured, String itemDescription, String itemCategory, String itemImage, String itemPrice){
         this.vendorID = vendorID;
         this.itemName = itemName;
@@ -22,6 +26,7 @@ public class ModelMenuItem {
         this.itemPrice = itemPrice;
     }
 
+    // constructor for a menu item with specifying the id
     public ModelMenuItem(int id, int vendorID, String itemName, String itemFeatured, String itemDescription, String itemCategory, String itemImage, String itemPrice){
         this.id = id;
         this.vendorID = vendorID;
@@ -33,6 +38,7 @@ public class ModelMenuItem {
         this.itemPrice = itemPrice;
     }
 
+    // getters and setters
     public int getId() {
         return id;
     }
@@ -72,7 +78,6 @@ public class ModelMenuItem {
     public void setItemDescription(String itemDescription) {
         this.itemDescription = itemDescription;
     }
-
     public String getItemCategory() {
         return itemCategory;
     }

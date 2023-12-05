@@ -19,7 +19,7 @@ import java.util.List;
 
 public class FoodFragment extends Fragment {
 
-
+    // vendor and user id
     private int vendorId;
     private int userID;
 
@@ -39,24 +39,25 @@ public class FoodFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_food, container, false);
 
+        // gets the current vendor from the database
         AppDatabase db = new AppDatabase(view.getContext());
         ModelVendor thisVendor = db.getVendorFromId(vendorId);
 
-        // You can find the TextView and set its text here
-        TextView textView = view.findViewById(R.id.title);
-//        textView.setText(thisVendor.getName() + " food list here: ");
-
+        // recycler view th lost the food items
         RecyclerView foodList = view.findViewById(R.id.foodList);
+        // gets food list from database in the "Food" category
         List<ModelMenuItem> modelMenuItemList = db.getMenuItemsByVendorAndCategory(vendorId, "Food");
+        // layout manager for the list
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         foodList.setLayoutManager(layoutManager);
+        // displays the listed items using the specified adapter class
         VendorFoodAdapter vendorFoodAdapter = new VendorFoodAdapter(view.getContext(), modelMenuItemList, userID);
         foodList.setAdapter(vendorFoodAdapter);
 
-
-//        textView.setText(" Food list : " + modelMenuItemList.size());
+        // For the title of the tab
+        TextView textView = view.findViewById(R.id.title);
         textView.setText(" Food list");
 
 

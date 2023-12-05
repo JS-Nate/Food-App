@@ -26,15 +26,21 @@ import android.util.Log;
 
 public class LocationFragment extends Fragment {
 
+    // vendor id
     private int vendorId;
+
+    // elements to display the map
     private MapView mapView;
     private GoogleMap gMap;
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
+
+    // database
     AppDatabase db;
 
+    // Required empty public constructor
     public LocationFragment(){}
 
-
+    // constructor the initialize the vendor id
     public LocationFragment(int vendorId) {
         this.vendorId = vendorId;
     }
@@ -46,13 +52,17 @@ public class LocationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         db = new AppDatabase(getActivity());
 
-        // You can find the TextView and set its text here
-        TextView textView = view.findViewById(R.id.textViewSearch);
+        // phone number
         TextView phoneNumber = view.findViewById(R.id.phoneNumber);
 
+        // gets the current vendor from the database based on the id
         ModelVendor modelVendor = db.getVendorFromId(vendorId);
         ImageView staticMapImageView = view.findViewById(R.id.static_map_image_view);
+
+        // gets vendor's lat and long in the database
         String location = modelVendor.getLatitude() + "," + modelVendor.getLongitude(); // Location coordinates
+
+        /* Uses geo location to display the address of the vendor in a static imageview */
         String size = "600x300"; // Size of the static map
         int zoom = 15; // Zoom level
         String apiKey = "AIzaSyB4ZrzZOqc1ImcxA-c9xOlMedPoz40Xl6c"; // api key
@@ -69,13 +79,12 @@ public class LocationFragment extends Fragment {
                 .load(staticMapUrl)
                 .into(staticMapImageView);
 
+
+        // displays the vendor phone number contact
         String contact = "";
         contact = modelVendor.getContact();
-        Log.d("Contact", "Contact: " + contact);
-
+        Log.d("Contact", "Contact: " + contact); // for debugging purposes
         phoneNumber.setText(contact);
-
-
 
         return view;
     }

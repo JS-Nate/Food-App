@@ -3,6 +3,7 @@ package com.example.foodapp.models;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+// model class for the order for all its properties
 public class ModelOrder {
     private Integer id;
     private Integer userID;

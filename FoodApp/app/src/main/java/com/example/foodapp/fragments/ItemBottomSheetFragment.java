@@ -26,27 +26,22 @@ import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
 
+/* This is the floating action menu displaying a menu item's details to add them to cart */
 public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
 
 
+    // on screen views and buttons
     TextView itemName, itemDescription, itemPrice, yourPrice;
     ImageView itemImage;
-
-
     RadioGroup radioGroup;
-
     EditText amount;
 
-    Button addToOrder;
-
-
-
-
+    // user, item and vendor id
     int userID;
     int itemID;
-    double sPrice = 0;
     int vendorID;
-    AppDatabase db;
+
+    double sPrice = 0;
 
 
 
@@ -54,6 +49,7 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
         // Required empty public constructor
     }
 
+    // constructor initializing the user and item id
     public ItemBottomSheetFragment(int userID, int itemID) {
         this.userID = userID;
         this.itemID = itemID;
@@ -62,21 +58,24 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
 
     @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_item_bottom_sheet_fragment, container, false);
+        // gets the current menu item from the database
         AppDatabase db = new AppDatabase(view.getContext());
-
         ModelMenuItem thisMenuItem = db.getMenuItem(itemID);
 
+        // on screen views
         itemName = view.findViewById(R.id.itemName);
         itemDescription = view.findViewById(R.id.itemDescription);
         itemPrice = view.findViewById(R.id.itemPrice);
-        double iPrice = Double.valueOf(thisMenuItem.getItemPrice());
         itemImage = view.findViewById(R.id.itemImage);
         yourPrice = view.findViewById(R.id.yourPrice);
+        // initial item price value
+        double iPrice = Double.valueOf(thisMenuItem.getItemPrice());
 
+        // button to choose the size of your item
+        // default small selected
         RadioGroup radioGroup = view.findViewById(R.id.sizeChoice);
         RadioButton small = view.findViewById(R.id.small);
         small.setChecked(true);
@@ -84,11 +83,10 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
         RadioButton large = view.findViewById(R.id.large);
 
 
-
+        // displays the item's name, description, price and image
         itemName.setText(thisMenuItem.getItemName());
         itemDescription.setText(thisMenuItem.getItemDescription());
         itemPrice.setText("$" + thisMenuItem.getItemPrice());
-
         String imageUrl = thisMenuItem.getItemImage();
         Picasso.get().load(imageUrl).into(itemImage);
 
@@ -98,8 +96,9 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
         TextView sub = view.findViewById(R.id.sub);
         TextView showAmount = view.findViewById(R.id.showAmount);
         int more = 1;
-        add.setOnClickListener(new View.OnClickListener() {
 
+        // when the user adds to the quantity and updates the price
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String presentValStr=showAmount.getText().toString();
@@ -108,8 +107,9 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
                 showAmount.setText(String.valueOf(presentIntVal));
             }
         });
-        sub.setOnClickListener(new View.OnClickListener() {
 
+        // when the user decreases to the quantity and updates the price
+        sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String presentValStr=showAmount.getText().toString();
@@ -118,11 +118,14 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
                 showAmount.setText(String.valueOf(presentIntVal));
             }
         });
+
+        // button to add to order
         Button addToOrder = view.findViewById(R.id.addToOrder);
+        // displays the initial price
         yourPrice.setText("Your Price: $" + (iPrice));
 
 
-
+        // adds to the price based on the user's chosen size
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -134,12 +137,13 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
                 } else if (checkedId == R.id.large) {
                     sPrice = 0.75;
                 }
+                // updates the current price display
                 yourPrice.setText("Your Price: $" + (Double.valueOf(showAmount.getText().toString())*(iPrice + sPrice)));
             }
         });
 
 
-
+        // updates the current price displayed
         showAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -153,7 +157,6 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
                     yourPrice.setText("Your Price: $0.00"); // Or handle it according to your requirements
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {}
         });
@@ -163,7 +166,7 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
 
 
 
-
+        // when the user adds to their order
         addToOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,8 +180,8 @@ public class ItemBottomSheetFragment extends BottomSheetDialogFragment {
                 // add item to order
                 db.addOrderItem(order.getId(), itemID, Integer.valueOf(showAmount.getText().toString()), subTotal);
 
+                // closes the floating action menu
                 dismiss();
-
             }
         });
 

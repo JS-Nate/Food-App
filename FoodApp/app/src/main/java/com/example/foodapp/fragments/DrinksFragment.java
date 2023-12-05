@@ -18,17 +18,19 @@ import com.example.foodapp.models.ModelMenuItem;
 import com.example.foodapp.models.ModelVendor;
 
 import java.util.List;
-
+/* This is the fragment that works the EXACT same way as the food fragment to display drinks */
 public class DrinksFragment extends Fragment{
 
 
-
+    // vendor and user id
     private int vendorId;
     private int userID;
 
+    // required empty constructor
     public DrinksFragment(){}
 
 
+    // constructor initializing the the vendor and user id
     public DrinksFragment(int vendorId, int userID) {
         this.vendorId = vendorId;
         this.userID = userID;
@@ -41,26 +43,27 @@ public class DrinksFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_food, container, false);
 
-        // You can find the TextView and set its text here
+        // gets the current vendor from the database
         AppDatabase db = new AppDatabase(view.getContext());
         ModelVendor thisVendor = db.getVendorFromId(vendorId);
 
 
-
-        RecyclerView foodList = view.findViewById(R.id.foodList);
+        // recycler view to list drinks
+        RecyclerView drinkList = view.findViewById(R.id.foodList);
+        // gets menu items from the database with the "drinks" category
         List<ModelMenuItem> modelMenuItemList = db.getMenuItemsByVendorAndCategory(vendorId, "Drink");
+        // layout manager for the recyclerview
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-        foodList.setLayoutManager(layoutManager);
+        drinkList.setLayoutManager(layoutManager);
+        // uses the same adapter for the food to list the drinks, since they're displayed similarly
         VendorFoodAdapter vendorFoodAdapter = new VendorFoodAdapter(view.getContext(), modelMenuItemList, userID);
-        foodList.setAdapter(vendorFoodAdapter);
+        drinkList.setAdapter(vendorFoodAdapter);
 
 
         // For testing purposes, to ensure the menu list is functioning
         TextView textView = view.findViewById(R.id.title);
-        // textView.setText(thisVendor.getName() + " food list here: ");
-//        textView.setText(" Drink list : " + modelMenuItemList.size());
         textView.setText(" Drink list : ");
 
         return view;

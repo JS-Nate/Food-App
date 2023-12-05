@@ -18,7 +18,6 @@ public class ModelUser {
         this.password = password;
         this.userImage = userImage;
     }
-
     public ModelUser(int id, String firstName, String lastName, String email, String password, String userImage){
         this.id = id;
         this.firstName = firstName;

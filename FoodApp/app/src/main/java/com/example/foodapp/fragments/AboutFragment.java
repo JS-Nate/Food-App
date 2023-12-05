@@ -28,15 +28,19 @@ import com.example.foodapp.R;
 
 public class AboutFragment extends Fragment {
 
+    // view and info about the vendor
     private VideoView videoView;
     TextView textViewAbout;
-    AppDatabase db;
 
+    // database and vendor's id
+    AppDatabase db;
     private int vendorId;
 
+    // required empty constructor
     public AboutFragment(){}
 
 
+    // constructor initializing the vendor id
     public AboutFragment(int vendorId) {
         this.vendorId = vendorId;
     }
@@ -45,23 +49,31 @@ public class AboutFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        // gets the current vendor from the database
         db = new AppDatabase(getActivity());
         ModelVendor vendor = db.getVendorFromId(vendorId);
+
+        // displays the description of the vendor
         textViewAbout.setText(vendor.getDescription());
+
+        // gets the promotional video in the files based on the one in the database
         int videoResourceId = getResources().getIdentifier(vendor.getVendorVideo(), "raw", getActivity().getPackageName());
 
+        // for debugging purposes
         Log.d("Video", "Video resource id: " + videoResourceId);
         Log.d("Video name", "Video name: " + vendor.getVendorVideo());
 
+        // sets the promotional video display in the videoView
         String videoPath = "android.resource://" + getActivity().getPackageName() + "/" + videoResourceId;
         Uri uri = Uri.parse(videoPath);
         videoView.setVideoURI(uri);
 
+        // uses Media Controller to control video play/pause
         MediaController mediaController = new MediaController(getActivity());
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
 
+        // starts the promotional video
         videoView.start();
     }
 
@@ -71,10 +83,8 @@ public class AboutFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
-        // You can find the TextView and set its text here
+        // on screen about and video view
         textViewAbout = view.findViewById(R.id.textViewAbout);
-
-
         videoView = view.findViewById(R.id.video_view);
 
         return view;

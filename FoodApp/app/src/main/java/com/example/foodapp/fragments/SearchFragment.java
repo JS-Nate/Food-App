@@ -27,17 +27,21 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
 
-
+    // vendor and user id
     private int vendorId;
     private int userID;
+
+    // list of menu items
     List<ModelMenuItem> modelMenuItemList;
+    // list adapter
     VendorFoodAdapter vendorFoodAdapter;
 
+    // Required empty public constructor
     public SearchFragment(){}
 
 
+    // constructor to initialize the vendor and user id
     public SearchFragment(int vendorId, int userID) {
-
         this.vendorId = vendorId;
         this.userID = userID;
     }
@@ -50,10 +54,10 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        // You can find the TextView and set its text here
-        TextView textView = view.findViewById(R.id.textViewSearch);
+        // editText as search bar
         EditText searchItems = view.findViewById(R.id.searchItems);
 
+        // filters the menu item list as the search bar is being changed
         searchItems.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -65,20 +69,22 @@ public class SearchFragment extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
-
+        // gets the current vendor from the database from its id
         AppDatabase db = new AppDatabase(view.getContext());
         ModelVendor thisVendor = db.getVendorFromId(vendorId);
 
-        RecyclerView foodList = view.findViewById(R.id.foodList);
+        // recyclerview to list the menu items
+        RecyclerView menuList = view.findViewById(R.id.foodList);
+        // list of menu items belonging to the current vendor
         modelMenuItemList = db.getMenuItemsByVendor(vendorId);
+        // layout manager for the recycler view and list
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-        foodList.setLayoutManager(layoutManager);
+        menuList.setLayoutManager(layoutManager);
+        // uses the adapter to list the food items
         vendorFoodAdapter = new VendorFoodAdapter(view.getContext(), modelMenuItemList, userID);
-        foodList.setAdapter(vendorFoodAdapter);
-
-
+        menuList.setAdapter(vendorFoodAdapter);
 
         return view;
     }
@@ -87,6 +93,7 @@ public class SearchFragment extends Fragment {
 
     // added for searching by filtering based on the user search
     private void filter(String query) {
+        // filters a new list of menu items based on the user search title
         List<ModelMenuItem> filteredList = new ArrayList<>();
         for (ModelMenuItem modelMenuItem : modelMenuItemList) {
             if (modelMenuItem.getItemName().toLowerCase().contains(query.toLowerCase())) {

@@ -1,5 +1,6 @@
 package com.example.foodapp.models;
 
+// model class for the images of different for all its properties
 public class ModelVendorImage {
 
     int id;
@@ -7,7 +8,7 @@ public class ModelVendorImage {
     String image;
 
 
-
+    // class initialization of creating and storing image information, with and without an id
     public ModelVendorImage() {}
     public ModelVendorImage(int vendorID, String image) {
         this.vendorID = vendorID;
@@ -20,6 +21,7 @@ public class ModelVendorImage {
         this.image = image;
     }
 
+    // getters and setters for each part of the stored image's info
     public int getId() {
         return id;
     }

@@ -154,6 +154,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
 
+    // table upgrade
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion >= newVersion)
@@ -169,7 +170,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     }
 
 
-    // For testing purposes
+    // For testing purposes, adds entries into the database for debugging and testing
     public void seedDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -318,7 +319,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 2);
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Pizza");
-        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "a nice large pizza");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "a nice yummy pizza");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://www.washingtonpost.com/graphics/2020/food/best-pizza-dc/img/TimberWholePizzaCutout.png");
@@ -351,7 +352,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 2);
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Sprite");
-        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Coca-Cola");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Sprite");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://m.media-amazon.com/images/I/71-29yqCPzL.jpg");
@@ -362,7 +363,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 3);
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Sprite");
-        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Coca-Cola");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Sprite");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://m.media-amazon.com/images/I/71-29yqCPzL.jpg");
@@ -373,7 +374,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 4);
         contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "Sprite");
-        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Coca-Cola");
+        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "Ice Cold Sprite");
         contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Drink");
         contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
         contentValues.put(MENU_ITEM_COLUMN_IMAGE, "https://m.media-amazon.com/images/I/71-29yqCPzL.jpg");
@@ -466,37 +467,6 @@ public class AppDatabase extends SQLiteOpenHelper {
 //        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "");
 //        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
 //        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
-//
-//        // add some menu item
-//        contentValues = new ContentValues();
-//        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
-//        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "");
-//        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "");
-//        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
-//        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
-//        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "");
-//        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
-//        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
-//
-//        // add some menu item
-//        contentValues = new ContentValues();
-//        contentValues.put(MENU_ITEM_COLUMN_VENDOR_ID, 1);
-//        contentValues.put(MENU_ITEM_COLUMN_ITEM_NAME, "");
-//        contentValues.put(MENU_ITEM_COLUMN_DESCRIPTION, "");
-//        contentValues.put(MENU_ITEM_COLUMN_CATEGORY, "Food");
-//        contentValues.put(MENU_ITEM_COLUMN_FEATURED, 0);
-//        contentValues.put(MENU_ITEM_COLUMN_IMAGE, "");
-//        contentValues.put(MENU_ITEM_COLUMN_PRICE, 1.99);
-//        db.insert(MENU_ITEM_DB_TABLE, null, contentValues);
-
-
-
-
-
-
-
-
-
 
 
         // add some order item
@@ -513,6 +483,8 @@ public class AppDatabase extends SQLiteOpenHelper {
 
 
     /****************** MENU TABLE ******************/
+
+    // gets a list of featured menu items based in their FEATURED column
     public List<ModelMenuItem> getFeaturedItems(){
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelMenuItem> menuItems = new ArrayList<>();
@@ -537,6 +509,8 @@ public class AppDatabase extends SQLiteOpenHelper {
         return menuItems;
     }
 
+
+    // gets a single menu item based on its id
     public ModelMenuItem getMenuItem(int ID){
         SQLiteDatabase db = this.getReadableDatabase();
         String[] query = new String[]{
@@ -561,7 +535,6 @@ public class AppDatabase extends SQLiteOpenHelper {
                     cursor.getString(6),
                     cursor.getString(7)
             );
-
         }
         else {
             return null;
@@ -569,7 +542,7 @@ public class AppDatabase extends SQLiteOpenHelper {
 
     }
 
-
+    // gets a list of menu items that belong to a certain vendor based on the vendor id
     public List<ModelMenuItem> getMenuItemsByVendor(int vendorId) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelMenuItem> menuItems = new ArrayList<>();
@@ -597,13 +570,13 @@ public class AppDatabase extends SQLiteOpenHelper {
             // Close the cursor
             cursor.close();
         }
-
         // Close the database
         db.close();
 
         return menuItems;
     }
 
+    // gets a list of menu items under the drink or food category belonging to the certain vendor based on its vendor id
     public List<ModelMenuItem> getMenuItemsByVendorAndCategory(int vendorId, String category) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelMenuItem> menuItems = new ArrayList<>();
@@ -645,6 +618,8 @@ public class AppDatabase extends SQLiteOpenHelper {
 
 
     /****************** ORDER ITEM TABLE ******************/
+
+    // gets a list of order items based on the order id they belong to
     public List<ModelOrderItem> getOrderItems(int orderID) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<ModelOrderItem> orderItems = new ArrayList<>();
@@ -676,6 +651,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         return orderItems;
     }
 
+    // gets the current user's current order based on their id
     public ModelOrder getCurrentOrder(int userID) {
         SQLiteDatabase db = this.getReadableDatabase();
         ModelOrder order = null;
@@ -703,12 +679,15 @@ public class AppDatabase extends SQLiteOpenHelper {
         return order;
     }
 
+    // changes status of an order once its shipped
     public void setOrderStatus(int orderID, String status) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ORDER_COLUMN_ORDER_STATUS, status);
         db.update(ORDER_DB_TABLE, contentValues, ORDER_COLUMN_ID + " = ?", new String[]{String.valueOf(orderID)});
     }
+
+    // gets or creates a new order
     public ModelOrder getOrCreateOrder(Integer userID, Integer vendorID, String date, Double subTotal) {
         SQLiteDatabase db = this.getReadableDatabase();
         ModelOrder order = null;
@@ -745,6 +724,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         return order;
     }
 
+    // adds a new order item to the database
     public void addOrderItem(int orderID, int itemID, int quantity, double subTotal) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -756,6 +736,7 @@ public class AppDatabase extends SQLiteOpenHelper {
         db.insert(ORDER_ITEM_DB_TABLE, null, contentValues);
     }
 
+    // inserts a new order item into the order page
     private void insertOrder(SQLiteDatabase db, ModelOrder order) {
         ContentValues values = new ContentValues();
         values.put(ORDER_COLUMN_USER_ID, order.getUserID());
@@ -796,7 +777,7 @@ public class AppDatabase extends SQLiteOpenHelper {
 
     /****************** USER TABLE ******************/
 
-
+    // updates a user with new info(mainly password)
     public int updateUser(int id, ModelUser updatedUser){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues updatedValues = new ContentValues();
@@ -813,10 +794,6 @@ public class AppDatabase extends SQLiteOpenHelper {
         );
 
     }
-
-
-
-
 
     // checks if a given user's credentials exist in the database upon login
     public boolean userExists(String email, String password){
@@ -904,7 +881,10 @@ public class AppDatabase extends SQLiteOpenHelper {
         }
     }
 
-    // Retrieve total orders
+
+
+    /****************** ORDER TABLE ******************/
+    // Retrieve total number of orders
     public int getTotalOrders() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT COUNT(*) FROM " + ORDER_DB_TABLE;
@@ -1023,7 +1003,7 @@ public class AppDatabase extends SQLiteOpenHelper {
             vendorName = cursor.getString(0);
             cursor.close();
         }
-
+        // closes database avoiding memory leaks
         db.close();
 
         return vendorName;
